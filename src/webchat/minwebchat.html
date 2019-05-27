@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Minimizable Web Chat Component</title>
+    <meta charset="UTF-8" />
+    <style>
+      body { margin: 20px; }
+      .wc-header {
+        background-color: #034780;
+        color: #ffffff;
+        background-image: url('robot.png');
+        background-repeat: no-repeat;
+        background-size: 32px 32px;
+        font-weight: 500;
+        width: 100%;
+        height: 30px;
+        letter-spacing: 0.5px;
+        padding: 6px 0 0 0;
+        font-family: "Segoe UI", sans-serif;
+        font-size: 15px;
+      }    
+      .btn {
+        border: none;
+        background-color: inherit;
+        width: 40px;
+        height: 30px;
+        margin: -6px 0 0 0;
+        font-size: 20px;
+        cursor: pointer;
+        color: rgb(78, 163, 248);
+      }
+      .btnClose, .btnSwitch {
+        float: right;
+      }
+      .btnClose:hover {
+        background: rgb(248, 60, 27);
+        color: white;
+      }
+      .btnSwitch:hover {
+        background: #2196F3;
+        color: white;
+      }
+      #webchat {
+        max-width: 400px;
+        min-width: 350px;
+        width: 30%;
+        background-color: #034780;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+        border: 4px solid #034780;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        bottom: 20px;
+        padding: 0 6px 4px 2px;
+        visibility: collapse;
+      }
+      @keyframes leftToRight {
+        0%   {right: 100%; margin-right: -40%}
+        100%  {left: auto; right: 20px; }
+      }
+      @keyframes rightToLeft {
+        0%   {left: 100%; margin-left: -40% }
+        100%  {right: auto; left: 20px; }
+      }
+      #webChatIcon {
+        background-image: url('robot.png');
+        background-size: 60px 60px;
+        height: 60px;
+        width: 60px;
+        border: none;
+        background-color: inherit;
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        cursor: pointer;
+      }  
+    </style>
+    <script>
+      function showChatWindow() {
+        document.getElementById('webchat').style.visibility = 'visible'
+        document.getElementById('webChatIcon').style.visibility = 'collapse'
+      }
+      function hideChatWindow() {
+        document.getElementById('webchat').style.visibility = 'collapse'
+        document.getElementById('webChatIcon').style.visibility = 'visible'
+      }
+      function switchChatWindow() {
+        const webchat = document.getElementById('webchat');
+        const animation = webchat.style.animation;
+        if (!animation || animation.includes('leftToRight')) {
+          webchat.style.animation = 'rightToLeft 0.5s forwards';
+        } else {
+          webchat.style.animation = 'leftToRight 0.5s forwards';
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button id='webChatIcon' onclick="showChatWindow()"></button>      
+    <div id="webchat">
+        <div class="wc-header">
+          <span style="margin: 0 0 0 40px;">Coreplus Chatbot</span>
+          <button class="btn btnClose" onclick="hideChatWindow()">x</button>
+          <button class="btn btnSwitch" onclick="switchChatWindow()">&#171;&#187;</button><!-- «» -->
+        </div>
+        <!-- <iframe src='https://your-bot-handle.azurewebsites.net/public/webchat.html' style='width: 100%; height: 100%;'></iframe> -->
+        <iframe id='botiframe' src='' style='width: 100%; height: 100%;'></iframe>
+        <script>
+          const iframe = document.getElementById('botiframe');
+          iframe.src = 'http://localhost:3978/public/webchat.html?r=' + new Date().getTime();
+        </script>
+    </div>
+    <h1>Minimizable Web Chat Component</h1>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit diam eget purus ultrices, non lobortis tortor tincidunt.
+        Proin efficitur neque at est accumsan, vitae convallis mauris lacinia. Ut accumsan lectus non lectus tempus, et iaculis ex pulvinar.
+        Praesent ut congue ex. Nam ullamcorper quam sit amet massa fermentum varius. Curabitur commodo, lorem id mollis elementum, ex enim semper augue,
+        eget bibendum justo augue eget ante. Proin vitae pellentesque ante, pellentesque rutrum tellus. Cras eget dui diam. Praesent in tempor ex, nec feugiat nibh.
+    </p>
+    <p>
+        Mauris in risus lacus. Nulla gravida dui purus, tempus vulputate tellus lobortis vitae. Nulla facilisi. Cras feugiat leo elit, sit amet tempus felis pulvinar ac.
+        Duis eu odio imperdiet, laoreet sapien a, euismod leo. Phasellus et eleifend justo. Proin pulvinar nibh in enim rutrum euismod.
+        Duis venenatis, massa quis molestie tempus, nisl turpis vestibulum neque, id mattis lacus nibh et nulla. Aenean at porta erat.
+        Etiam bibendum ipsum libero, eget dignissim justo venenatis quis. Suspendisse eleifend nunc sit amet luctus mattis.
+    </p>
+    <p>
+        Donec suscipit fringilla est, sit amet pretium leo. Integer auctor augue efficitur nulla viverra, sit amet laoreet nunc iaculis.
+        Nulla eros lorem, vulputate ac bibendum vel, facilisis sed neque. Donec elementum, neque vel eleifend tristique, augue nisl vulputate enim,
+        sed scelerisque lorem massa sed erat. Sed ornare varius turpis non congue. Suspendisse posuere sed ligula nec ullamcorper.
+        Praesent mollis pulvinar est, vitae lobortis ante volutpat id. Nullam consequat blandit tincidunt.
+        Curabitur congue, justo ut fringilla congue, elit metus semper lacus, at molestie erat quam sit amet neque.
+        Ut sit amet dolor eget mauris malesuada blandit eget in orci. Aliquam erat volutpat. Curabitur iaculis vestibulum faucibus.
+        Nulla eleifend lacinia libero, a gravida urna iaculis vitae. Cras et sapien pellentesque, placerat massa vitae, pellentesque velit.
+        In volutpat velit lectus, at mattis orci dignissim ut. Aenean faucibus ligula at nisi porta porttitor nec fermentum dolor.
+    </p>
+    <p>
+        Vestibulum laoreet, erat at finibus aliquet, nibh quam dignissim turpis, eu luctus purus sem vitae ipsum. Morbi viverra quam quis enim aliquet fringilla.
+        Mauris imperdiet lorem elit, non hendrerit velit tempor quis. Vivamus non lorem auctor, feugiat sapien vitae, porttitor elit.
+        Integer gravida eu massa vitae convallis. Sed vel dolor risus. In eu diam molestie diam dapibus gravida et in arcu.
+        Fusce feugiat mollis sapien vitae varius. Donec ac nibh nibh. Suspendisse condimentum augue in faucibus bibendum.
+    </p>
+  </body>
+</html>

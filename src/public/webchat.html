@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Coreplus Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <script src="https://cdn.botframework.com/botframework-webchat/master/webchat.js"></script>
+    <style>
+      html, body { height: 100% }
+      body { margin: 0 }
+      #webchat {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="webchat" role="main"></div>
+    <script>
+      (function () {
+        // https://github.com/Microsoft/BotFramework-WebChat/blob/master/SAMPLES.md
+        const styleSet = window.WebChat.createStyleSet({
+          locale: 'en-US',
+          botAvatarInitials: 'Core+',
+          botAvatarImage: 'robot.png',
+          userAvatarInitials: 'You',
+          userAvatarImage: 'https://github.com/hinojosachapel.png?size=64',
+          bubbleBackground: 'rgba(250, 250, 250)',
+          bubbleFromUserBackground: 'rgba(120, 200, 250)'
+        });
+
+        // https://github.com/Microsoft/BotFramework-WebChat/blob/master/samples/01.a.getting-started-full-bundle/index.html#L25
+        window.WebChat.renderWebChat({
+          directLine: window.WebChat.createDirectLine({ token: 'YOUR_DIRECT_LINE_TOKEN' }),
+          styleSet
+        }, document.getElementById('webchat'));
+
+        document.querySelector('#webchat > *').focus();
+      })().catch(err => console.error(err));
+    </script>
+  </body>
+</html>
