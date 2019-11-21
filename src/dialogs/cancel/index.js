@@ -11,7 +11,7 @@ const CONFIRM_PROMPT = 'confirmPrompt';
 
 /**
  *
- * @param {PropertyStateAccessor} userDataAccessor property accessor for user state
+ * @param {StatePropertyAccessor<UserData>} userDataAccessor property accessor for user state
  */
 class CancelDialog extends ComponentDialog {
     constructor(userDataAccessor) {

@@ -39,8 +39,7 @@ const USER_LOCATION_ENTITIES = ['userLocation', 'userLocation_patternAny'];
  *  Show localized texts to the user
  *  Store conversation and user state
  *
- * @param {String} dialogId unique identifier for this dialog instance
- * @param {PropertyStateAccessor} userDataAccessor property accessor for user state
+ * @param {StatePropertyAccessor<UserData>} userDataAccessor property accessor for user state
  */
 class GreetingDialog extends ComponentDialog {
     constructor(userDataAccessor) {
@@ -160,7 +159,7 @@ class GreetingDialog extends ComponentDialog {
     /**
      * Validator function to verify that user name meets required constraints.
      *
-     * @param {PromptValidatorContext} validation context for this validator.
+     * @param {PromptValidatorContext<string>} validation context for this validator.
      */
     async validateName(validatorContext) {
         const userData = await this.userDataAccessor.get(validatorContext.context);
@@ -180,7 +179,7 @@ class GreetingDialog extends ComponentDialog {
     /**
      * Validator function to verify if city meets required constraints.
      *
-     * @param {PromptValidatorContext} validation context for this validator.
+     * @param {PromptValidatorContext<string>} validation context for this validator.
      */
     async validateCity(validatorContext) {
         const userData = await this.userDataAccessor.get(validatorContext.context);

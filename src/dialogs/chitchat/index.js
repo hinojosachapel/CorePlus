@@ -11,7 +11,7 @@ const localizer = require('i18n');
 
 /**
  *
- * @param {PropertyStateAccessor} userDataAccessor property accessor for user state
+ * @param {StatePropertyAccessor<UserData>} userDataAccessor property accessor for user state
  */
 class ChitchatDialog extends ComponentDialog {
     constructor(userDataAccessor) {

@@ -34,7 +34,7 @@ class WelcomeDialog extends ComponentDialog {
      *
      * @param {WaterfallStepContext} step contextual information for the current step being executed
      */
-    async welcomeStep(step, options) {
+    async welcomeStep(step) {
         // if (userData === undefined) => It's a bug!!!
         const userData = await this.userDataAccessor.get(step.context);
         const locale = userData.locale;

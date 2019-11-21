@@ -12,8 +12,8 @@ const ASK_FEEDBACK_PROMPT = 'askFeedbackPrompt';
 class QnADialog extends ComponentDialog {
     /**
      *
+     * @param {StatePropertyAccessor<UserData>} userDataAccessor property accessor for user state
      * @param {Array<QnAMaker>} qnaRecognizers array of QnAMaker objects
-     * @param {PropertyStateAccessor} userDataAccessor property accessor for user state
      */
     constructor(userDataAccessor, qnaRecognizers) {
         super(QnADialog.name);
@@ -92,7 +92,7 @@ class QnADialog extends ComponentDialog {
     /**
      * Validator function to verify that feedback answer meets required constraints.
      *
-     * @param {PromptValidatorContext} validation context for this validator.
+     * @param {PromptValidatorContext<FoundChoice>} validation context for this validator.
      */
     async validateFeedback(validatorContext) {
         // Accept any response, so no reprompt is triggered

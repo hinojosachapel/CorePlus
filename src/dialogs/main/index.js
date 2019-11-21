@@ -21,8 +21,8 @@ const LUIS_CONFIDENCE_THRESHOLD = 0.7;
 const MAIN_DIALOG_STATE_PROPERTY = 'mainDialogState';
 const USER_DATA_PROPERTY = 'userDataProperty';
 
-// DialogTurnStatus default value
-const DIALOG_TURN_STATUS_DEFAULT = { status: DialogTurnStatus.waiting };
+// DialogTurnResult default value
+const DIALOG_TURN_RESULT_DEFAULT = { status: DialogTurnStatus.waiting };
 
 /**
  *
@@ -74,7 +74,7 @@ class MainDialog extends ComponentDialog {
     async onContinueDialog(dc) {
         // Override default continue() logic with bot orchestration logic
         const context = dc.context;
-        let turnResult = DIALOG_TURN_STATUS_DEFAULT;
+        let turnResult = DIALOG_TURN_RESULT_DEFAULT;
         let locale = await this.getUserLocale(context);
 
         if (locale === undefined || locale === '') {
@@ -115,7 +115,7 @@ class MainDialog extends ComponentDialog {
     }
 
     async routeMessage(dc, locale) {
-        let turnResult = DIALOG_TURN_STATUS_DEFAULT;
+        let turnResult = DIALOG_TURN_RESULT_DEFAULT;
         const utterance = (dc.context.activity.text || '').trim().toLowerCase();
 
         // Handle commands
@@ -201,7 +201,7 @@ class MainDialog extends ComponentDialog {
      * @param {DialogContext} dc The dialog context for the current turn of conversation.
      */
     async welcomeUser(dc) {
-        let turnResult = DIALOG_TURN_STATUS_DEFAULT;
+        let turnResult = DIALOG_TURN_RESULT_DEFAULT;
         const context = dc.context;
 
         // Handle ConversationUpdate activity type, which is used to indicates new members add to
@@ -209,7 +209,7 @@ class MainDialog extends ComponentDialog {
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types
 
         // Do we have any new members added to the conversation?
-        if (context.activity.membersAdded.length !== 0) {
+        if (context.activity.membersAdded && context.activity.membersAdded.length !== 0) {
             // Iterate over all new members added to the conversation
             for (var idx in context.activity.membersAdded) {
                 // Greet anyone that was not the target (recipient) of this message
@@ -253,11 +253,7 @@ class MainDialog extends ComponentDialog {
      */
     async setUserLocale(context, newLocale) {
         // get userData object using the accessor
-        let userData = await this.userDataAccessor.get(context);
-
-        if (userData === undefined) {
-            userData = new UserData();
-        }
+        let userData = await this.userDataAccessor.get(context, new UserData());
 
         if (userData.locale !== newLocale && newLocale !== '' && newLocale !== undefined) {
             userData.locale = newLocale;
