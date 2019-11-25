@@ -1,4 +1,4 @@
-# CorePlus Bot Template
+# CorePlus Bot Template (NodeJS)
 A Microsoft Bot Framework v4 template that will let you quickly set up a Transactional, Question and Answer, and Conversational AI chatbot. This is an extension of a previous version of the Microsoft **Core Bot template** (Node.js) suported by the Yeoman generator [generator-botbuilder](https://github.com/Microsoft/BotBuilder-Samples/tree/4.next/generators/generator-botbuilder).
 
 ![CorePlus Bot Template](../master/images/MinimizableWebChatComponent2.png "CorePlus Bot Template")
@@ -21,7 +21,7 @@ The **CorePlus Bot Template** shows how to:
 - Use a **Web Chat** as a **Minimizable Web Chat Component** with no [React][19]
 
 ## Prerequisites
-- [Node.js][4] version 8.5 or higher
+- [Node.js][4] version 10.14 or higher
 - If you don't have a [LUIS][11] Account, create a free [LUIS][16] Account
 - If you don't have a [QnA Maker][12] Account, create a free [QnA Maker][17] Account
 - [Visual Studio Code][18] as a recommended development environment
@@ -79,13 +79,13 @@ The **CorePlus Bot Template** shows how to:
   }
   ```
 
-- From inside the development environment, create the `.env` file located in the `src/config` folder with the following content:
+- From inside the development environment, create the `.env` file located in the `javascript_nodejs/src/config` folder with the following content:
   ```bash
   botFileSecret=""
   publicResourcesUrl="http://localhost:3978"
   ```
   
-- Navigate to the `src` folder and run the following npm commands to install modules and start the bot:
+- Navigate to the `javascript_nodejs` folder and run the following npm commands to install modules and start the bot:
   ```bash
   npm install
   npm start
@@ -99,11 +99,11 @@ The **CorePlus Bot Template** shows how to:
 ## Connect to the bot using Bot Framework Emulator **v4**
 - Launch Bot Framework Emulator
 - File -> Open Bot Configuration
-- Navigate to `config` folder
+- Navigate to `javascript_nodejs/src/config` folder
 - Select `development.bot` file
 
 # About the .bot file
-With the 4.3 release of the Bot Framework, Microsoft moved away from using .bot files. The .bot file [has been deprecated](https://docs.microsoft.com/en-us/azure/bot-service/bot-file-basics?view=azure-bot-service-4.0&tabs=js). The new recommended solution for managing resources is to use a .env file instead of the .bot file. So, I'll be updating the project in a very near future accordingly.
+With the 4.3 release of the Bot Framework, Microsoft moved away from using .bot files. The .bot file [has been deprecated](https://docs.microsoft.com/en-us/azure/bot-service/bot-file-basics?view=azure-bot-service-4.0&tabs=js). The new recommended solution for managing resources is to use appsettings.json or .env file instead of the .bot file. So, I'll be updating the project in a near future accordingly.
 
 # Further reading
 - [CorePlus: a Microsoft Bot Framework v4 template][50]
