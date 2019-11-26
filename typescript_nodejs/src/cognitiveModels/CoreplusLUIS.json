@@ -1,0 +1,1188 @@
+{
+  "luis_schema_version": "3.2.0",
+  "versionId": "0.1",
+  "name": "CoreplusLUIS",
+  "desc": "'CorePlus",
+  "culture": "en-us",
+  "tokenizerVersion": "1.0.0",
+  "intents": [
+    {
+      "name": "ChitchatCancel"
+    },
+    {
+      "name": "ChitchatHelp"
+    },
+    {
+      "name": "ChitchatJoke"
+    },
+    {
+      "name": "ChitchatProfanity"
+    },
+    {
+      "name": "Greeting"
+    },
+    {
+      "name": "None"
+    }
+  ],
+  "entities": [
+    {
+      "name": "userLocation",
+      "roles": []
+    },
+    {
+      "name": "userName",
+      "roles": []
+    }
+  ],
+  "composites": [],
+  "closedLists": [],
+  "patternAnyEntities": [
+    {
+      "name": "userLocation_patternAny",
+      "roles": [],
+      "explicitList": []
+    },
+    {
+      "name": "userName_paternAny",
+      "roles": [],
+      "explicitList": []
+    }
+  ],
+  "regex_entities": [],
+  "prebuiltEntities": [],
+  "model_features": [
+    {
+      "name": "BadWords",
+      "mode": true,
+      "words": "anus,ass,bastard,bitch,cum,cunt,dick,dildo,dyke,fag,faggot,fuck,fuk,handjob,homo,jizz,kike,kunt,muff,nigger,penis,piss,poop,pussy,queer,rape,semen,sex,shit,slut,titties,twat,vagina,vulva,wank,analplug,analsex,arse,assassin,balls,bimbo,bloodyhell,bollocks,boobies,bukkake,bullshit,cocksucker,condom,coon,crap,cumshot,damm,dammit,damn,dickhead,doggystyle,f0ck,fags,fanny,fck,fcker,fckr,fcku,fcuk,fucker,fuckface,fuckr,fuct,genital,genitalia,genitals,glory hole,gloryhole,gobshite,godammet,godammit,goddammet,goddammit,goddamn,gypo,hitler,hooker,hore,horny,jesussucks,jizzum,kaffir,kill,killer,killin,killing,lesbo,masturbate,milf,molest,moron,motherfuck,mthrfckr,murder,murderer,nazi,negro,nigga,niggah,nonce,paedo,paedophile,paki,pecker,pedo,pedofile,pedophile,phuk,pig,pimp,poof,porn,anal,prick,pron,prostitute,raped,rapes,rapist,schlong,screw,scrotum,shag,shemale,shite,shiz,slag,spastic,spaz,sperm,spunk,stripper,tart,terrorist,tits,tittyfuck,tosser,turd,vaginal,vibrator,wanker,weed,wetback,whor,whore,wog,wtf,xxx,abortion,beastiality,bestiality,bewb,blow,blumpkin,choad,cooter,cornhole,dong,douche,fart,foreskin,gangbang,gook,hell,honkey,humping,jiz,labia,nutsack,pen1s,poon,punani,queef,quim,rectal,rectum,rimjob,spick,spoo,spooge,taint,titty,vag,4r5e,5h1t,5hit,a55,ar5e,arrse,ass-fucker,asses,assfucker,assfukka,asshole,assholes,asswhole,a_s_s,b!tch,b00bs,b17ch,b1tch,ballbag,ballsack,beastial,bellend,bestial,bi+ch,biatch,bitcher,bitchers,beyotch,bitcher snitcher,beeyotch,biatches,biyatch,byatch,feacal,biotch,bicth,beetch,basturd,biotches,beyotches,beotch,beeotch,biznatch,mfers,assbag,jerkwads,panzies,muthafukka,dillhole,beatch,bee otch,beyatch,mo fo,sonuvabitch,jerkwad,asstard,duchebag,nit wit,assmunch,jagoffs,fcuker,s.o.b,hobag,dooshbag,dumbarse,fuktard,numbnut,dumb@$$,wack job,dipwad,slimebag,ignoramous,imbicile,dummass,dunderhead,stupidass,douchbag,morron,azzhole,dumb@ss,dumbasss,numnuts,nobhead,baffoon,bafoon,faggit,dumasses,faggits,@sshole,idoit,d bag,dbag,morrons,dufus,douchbags,assclown,fagg,idoits,idot,nincompoop,dimwit,numbskull,halfwit,hypocrit,dimwits,numbskulls,asshat,nitwit,cretin,shmuck,idjit,nimrods,twerp,doofus,dullard,dolt,buffoons,blithering,ignoramus,slimeball,dweeb,nitwits,dolts,nincompoops,dullards,simpletons,ignoramuses,buffoon,know nothing,blowhard,cretins,windbag,halfwits,bozos,blowhards,mouth breathers,know nothings,half wits,dunderheads,idjits,assclowns,numpties,ninnies,boneheads,d!ck,d1ck,ballss,dikk,asssssss,asssss,diick,suked,suckhole,terds,a@@,azzz,ballls,assss,suckd,fagets,fagit,@ss,a@#,d!cks,assssss,nutts,kiked,kickd,bastered,bitchass,@zz,a.ss,@sses,as.s,azzzz,asz,whopped,@rse,asholes,fcuked,wooped,wuppin,assssssss,aass,azzez,whooped,axx,buttt,fukked,azs,azzed,arss,bxtch,bitchhhh,fucin,stupis,fukd,lipz,a s,retared,haahahah,hahhahahaha,ahahahaa,fukker,hhahahahaha,looooooool,hahahahhahaha,hahahahahhaha,ahhahahah,hhahahah,ahahahahha,hahahaahah,hahahhahahaha,fckn,bitches,bitchin,bitching,bloody,blow job,blowjob,blowjobs,boiolas,bollock,bollok,boner,boob,boobs,booobs,boooobs,booooobs,booooooobs,breasts,buceta,bugger,bum,bunny fucker,butt,butthole,buttmuch,buttplug,c0ck,c0cksucker,carpet muncher,cawk,chink,cipa,cl1t,clit,clitoris,clits,cnut,cock,cock-sucker,cockface,cockhead,cockmunch,cockmuncher,cocks,cocksuck,cocksucked,cocksucking,cocksucks,cocksuka,cocksukka,cok,cokmuncher,coksucka,cox,cummer,cumming,cums,cunilingus,cunillingus,cunnilingus,cuntlick,cuntlicker,cuntlicking,cunts,cyalis,cyberfuc,cyberfuck,cyberfucked,cyberfucker,cyberfuckers,cyberfucking,dildos,dink,dinks,dirsa,dlck,dog-fucker,doggin,dogging,donkeyribber,doosh,duche,ejaculate,ejaculated,ejaculates,ejaculating,ejaculatings,ejaculation,ejakulate,f u c k,f u c k e r,f4nny,fagging,faggitt,faggs,fagot,fagots,fannyflaps,fannyfucker,fanyy,fatass,fcuking,feck,fecker,felching,fellate,fellatio,fingerfuck,fingerfucked,fingerfucker,fingerfuckers,fingerfucking,fingerfucks,fistfuck,fistfucked,fistfucker,fistfuckers,fistfucking,fistfuckings,fistfucks,flange,fook,fooker,fucka,fucked,fuckers,fuckhead,fuckheads,fuckin,fucking,fuckings,fuckingshitmotherfucker,fuckme,fucks,fuckwhit,fuckwit,fudge packer,fudgepacker,fuker,fukkin,fuks,fukwhit,fukwit,fux,fux0r,f_u_c_k,gangbanged,gangbangs,gaylord,gaysex,goatse,god,god-dam,god-damned,goddamned,hardcoresex,heshe,hoar,hoare,hoer,horniest,hotsex,jack-off,jackoff,jap,jerk-off,jism,jizm,kawk,knob,knobead,knobed,knobend,knobhead,knobjocky,knobjokey,kock,kondum,kondums,kum,kummer,kumming,kums,kunilingus,l3i+ch,l3itch,lmfao,lust,lusting,m0f0,m0fo,m45terbate,ma5terb8,ma5terbate,masochist,master-bate,masterb8,masterbat*,masterbat3,masterbate,masterbation,masterbations,mo-fo,mof0,mofo,mothafuck,mothafucka,mothafuckas,mothafuckaz,mothafucked,mothafucker,mothafuckers,mothafuckin,mothafucking,mothafuckings,mothafucks,mother fucker,motherfucked,motherfucker,motherfuckers,motherfuckin,motherfucking,motherfuckings,motherfuckka,motherfucks,mutha,muthafecker,muthafuckker,muther,mutherfucker,n1gga,n1gger,nigg3r,nigg4h,niggas,niggaz,niggers,nob,nob jokey,nobjocky,nobjokey,numbnuts,orgasim,orgasims,orgasm,orgasms,p0rn,pawn,penisfucker,phonesex,phuck,phuked,phuking,phukked,phukking,phuks,phuq,pigfucker,pimpis,pissed,pisser,pissers,pisses,pissflaps,pissin,pissing,pissoff,porno,pornography,pornos,pricks,pube,pusse,pussi,pussies,pussys,retard,rimjaw,rimming,s hit,s.o.b.,sadist,screwing,scroat,scrote,sh!+,sh!t,sh1t,shagger,shaggin,shagging,shi+,shitdick,shited,shitey,shitfuck,shitfull,shithead,shiting,shitings,shits,shitted,shitter,shitters,shitting,shittings,shitty,skank,sluts,smegma,smut,snatch,son-of-a-bitch,spac,s_h_i_t,t1tt1e5,t1tties,teets,teez,testical,testicle,tit,titfuck,titt,tittie5,tittiefucker,tittywank,titwank,tw4t,twathead,twatty,twunt,twunter,v14gra,v1gra,viagra,w00se,wang,wanky,whoar,willies,willy,xrated,testicular,testicles,testicals,scrotal,prostate,ovarian,testis,vulval,spermatic,milk,ovaries,ovary,eggs,spermary,stupid",
+      "activated": true
+    }
+  ],
+  "regex_features": [],
+  "patterns": [
+    {
+      "pattern": "i live in {userLocation_patternAny}",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "call me {userName_paternAny}",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "{userLocation_patternAny} is where i live",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "{userName_paternAny} is my name",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "some people call me {userName_paternAny}",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "i reside in {userLocation_patternAny}",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "you can call me {userName_paternAny}",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "my name is {userName_paternAny}",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "i'm {userName_paternAny}",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "you can assume i live in {userLocation_patternAny}",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "{userName_paternAny}.",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "i'm from {userLocation_patternAny}",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "i'm {userName_paternAny}[,] [and i'm] from {userLocation_patternAny}",
+      "intent": "Greeting"
+    },
+    {
+      "pattern": "my name is {userName_paternAny} and i'm from {userLocation_patternAny}",
+      "intent": "Greeting"
+    }
+  ],
+  "utterances": [
+    {
+      "text": "?",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "abort",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "annoying",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "are you a bot?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "are you busy?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "are you old?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "ashole",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "asshole",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "bastard",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "bitch",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "call me scott",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userName",
+          "startPos": 8,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "can you crack a joke",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "can you do something funny",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "can you fly?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "can you help me",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "can you tell me a joke",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "can you tell me something funny",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "cancel",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "commands",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "confused",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "cook me something",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "crap",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "dan",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userName",
+          "startPos": 0,
+          "endPos": 2
+        }
+      ]
+    },
+    {
+      "text": "delhi",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 0,
+          "endPos": 4
+        }
+      ]
+    },
+    {
+      "text": "dhaka",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 0,
+          "endPos": 4
+        }
+      ]
+    },
+    {
+      "text": "do yo know a joke?",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "do you have humor",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "do you have humour?",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "do you know any jokes?",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "do you know any other jokes?",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "do you play games?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "do you understand me?",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "dont you ever sleep?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "forget it",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "frustrated",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "fuck",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "fuck you",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "getting tired of you",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "give me a joke",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "gnocchi",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "go to hell",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "good evening",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "good morning",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "handjob",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "have you any dreams?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "hel",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "hello",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "hello bot",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "help",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "help me",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "help please",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "her cat has no teeth",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "hey",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "hey there",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "hi",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "hi bot",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "hiya",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "holy shit",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "how are you",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "how are you today",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "how do i interact with you",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "how old are you?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "i am tired of you",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "i changed my mind",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "i don' t know how",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "i don' t know what i would like to do",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "i don' t know what to do",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "i don' t know why i am here",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "i don't understand",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "i live in london",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 10,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "i need sos",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "i reside in san francisco",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 12,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "i will not give you my location or name",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "i will not give you my name",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "i won't give you my name",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "i would like to cancel",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "i'd rather be riding my bike",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "idiot",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "i'm bailing",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "i'm from georgia",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 9,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "i'm john from cairo",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userName",
+          "startPos": 4,
+          "endPos": 7
+        },
+        {
+          "entity": "userLocation",
+          "startPos": 14,
+          "endPos": 18
+        }
+      ]
+    },
+    {
+      "text": "i'm lauren, and i'm from madrid",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userName",
+          "startPos": 4,
+          "endPos": 9
+        },
+        {
+          "entity": "userLocation",
+          "startPos": 25,
+          "endPos": 30
+        }
+      ]
+    },
+    {
+      "text": "i'm lili",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userName",
+          "startPos": 4,
+          "endPos": 7
+        }
+      ]
+    },
+    {
+      "text": "i'm lost",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "i'm not going to tell you where i live",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "i'm stuck",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "joke",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "ko",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "list",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "list of options",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "lost",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "make me laugh",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "melanie",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userName",
+          "startPos": 0,
+          "endPos": 6
+        }
+      ]
+    },
+    {
+      "text": "menu",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "motherfucker",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "mumbai",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 0,
+          "endPos": 5
+        }
+      ]
+    },
+    {
+      "text": "my location is new york",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 15,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "my name is maria and i'm from sydney",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userName",
+          "startPos": 11,
+          "endPos": 15
+        },
+        {
+          "entity": "userLocation",
+          "startPos": 30,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "my name is tom",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userName",
+          "startPos": 11,
+          "endPos": 13
+        }
+      ]
+    },
+    {
+      "text": "never mind",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "no",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "no way",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "no way, i won't give you my location",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "ok",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "ok what can u do for me",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "option",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "options",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "paris",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 0,
+          "endPos": 4
+        }
+      ]
+    },
+    {
+      "text": "please cancel",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "please stop",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "please, help",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "portland",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 0,
+          "endPos": 7
+        }
+      ]
+    },
+    {
+      "text": "quit",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "really fed up",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "say a joke",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "say something funny",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "seattle is my current city",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 0,
+          "endPos": 6
+        }
+      ]
+    },
+    {
+      "text": "shangai",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 0,
+          "endPos": 6
+        }
+      ]
+    },
+    {
+      "text": "shit",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "show me a joke",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "show me something funny",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "shut up",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "so lame",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "sos",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "spaghetti",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "stop",
+      "intent": "ChitchatCancel",
+      "entities": []
+    },
+    {
+      "text": "stupid",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "tel me another jkoke",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "tell me a good joke",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "tell me a joke",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "tell me ajoke",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "tell me another joke",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "tell me in joke",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "tell me something funny",
+      "intent": "ChitchatJoke",
+      "entities": []
+    },
+    {
+      "text": "that was a joke",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "this is shit",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "this sucks",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "tony is my name",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userName",
+          "startPos": 0,
+          "endPos": 3
+        }
+      ]
+    },
+    {
+      "text": "toronto",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 0,
+          "endPos": 6
+        }
+      ]
+    },
+    {
+      "text": "ugly",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "up yours",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "ur stupid",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "vishwac is my name",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userName",
+          "startPos": 0,
+          "endPos": 6
+        }
+      ]
+    },
+    {
+      "text": "what are your capabilities",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what can i do?",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what can i say",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what can i type?",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what can u do",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what can you do",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what can you do for me",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what can you do?",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what can you help me with",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what do i do now",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what do i do?",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what do i type ?",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what do you think about me?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what i can do?",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "what is your name?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what's your age?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what's your name",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "who am i speaking to",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "who am i speaking with",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "who are you",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "who is your boss?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "why are you so dumb?",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "why doesn't this work",
+      "intent": "ChitchatHelp",
+      "entities": []
+    },
+    {
+      "text": "world wide pants",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "wtf?",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "yep",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "yes",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "yo",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "you are awful",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "you are boring",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "you are horrible",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "you are ugly",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "you can assume i live in cairo",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userLocation",
+          "startPos": 25,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "you can call me steve",
+      "intent": "Greeting",
+      "entities": [
+        {
+          "entity": "userName",
+          "startPos": 16,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "you suck",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "you're awful",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "you're horrible",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    },
+    {
+      "text": "you're useless",
+      "intent": "ChitchatProfanity",
+      "entities": []
+    }
+  ],
+  "settings": []
+}
