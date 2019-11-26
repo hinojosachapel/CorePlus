@@ -1,0 +1,73 @@
+{
+	"welcome": {
+		"tittle": "👋 Hello, welcome to Bot Framework!",
+		"subtittle": "If you want to start over, just write \"**%s**\" at any time. Stuck and don't know what to say? Type \"**help**\" and I'll tell you some hints. You may also ask me questions about the trained subject in QnA Maker.",
+		"privacy": "See my privacy policy",
+		"readyPrompt": "How can I help you?"
+	},
+	"greeting": {
+		"namePrompt": "What is your name?",
+		"cityPrompt": "Hello %s, what city do you live in?",
+		"validateName": "Names need to be at least %s characters long.",
+		"validateCity": "City names needs to be at least %s characters long.",
+		"greetUser1": "Hi {userName}, from {userCity}, nice to meet you!",
+		"greetUser2": "You can always say \"My name is <your name>\" or \"I live in <your city>\" to reintroduce yourself to me."
+	},
+	"qna": {
+		"answerFound": "Great! I'll be here if you need anything else. 😃",
+		"answerNotFound1": "Opppsss... Your question is too complex for me. Can you please rephrase it? 😕😕😕\n(This demo only understands one question: *What is a chatbot?*)",
+		"answerNotFound2": "Or type \"**help**\" and I'll tell you some hints.",
+		"requestFeedback": "Did you find my answer helpful?",
+		"helpful": "Helpful 👍",
+		"notHepful": "Not helpful 👎"
+	},
+	"hints": {
+		"capacity": "Hello",
+		"joke": "Tell me a joke",
+		"profanity": "You are boring",
+		"qna": "What is a chatbot?",
+		"chitChat": "You are awesome!",
+		"restart": "Restart",
+		"help": "Help"
+	},
+	"jokes": {
+		"0": "My boss told me to have a good day so I went home 😂",
+		"1": "What do you call a guy with a rubber toe? && Roberto 🤣",
+		"2": "What's the best thing about Switzerland? && I don't know, but their flag is a huge plus 😂",
+		"3": "Teacher: Did your father help you with your homework? && Student: No, he did it all by himself 🤣",
+		"4": "Teacher: Tell me a sentence that starts with an \"I\" && Student: I is the... && Teacher: Stop! Never put \"is\" after an \"I\", always put \"am\" after an \"I\" && Student: OK. I am the ninth letter of the alphabet 😂",
+		"5": "I ordered a chicken and an egg from Amazon... && I'll let you know 🤣",
+		"6": "How many programmers does it take to change a light bulb? && None, that’s a hardware issue 🤣"
+	},
+	"help": {
+		"introduction": "Let me try to provide some help:",
+		"restart": "- Type \"**%s**\" if you want to start over.",
+		"capabilities": "- Ask me things I can help you with such as: \"**Hi**\", \"**Hello**\" or \"**Good morning**\".",
+		"cancel": "- Write \"**Cancel**\" if you change your mind while I'm requesting some information.",
+		"qna": "- I also understand questions about the trained subject in QnA Maker, like \"**What is a chatbot?**\"."
+	},
+	"cancel": {
+		"prompt": "Are you sure you want to cancel? 😮",
+		"confirmed": "Ok, let's start over. 👍 How would you like to continue?",
+		"denied": "Ok, let's keep going. 👍",
+		"nothing": "I don't have anything to cancel 😅"
+	},
+	"promptAnswer": {
+		"yes": "Yes",
+		"no": "No",
+		"yesThumb": "Yes 👍",
+		"noThumb": "No 👎"
+	},
+	"synonyms": {
+		"yes": ["yes", "y", "yeah", "yay", "👍", "awesome", "great", "cool", "sounds good", "works for me", "bingo", "go ahead",
+			"yup", "yes to that", "you're right", "that was right", "that was correct", "that's accurate", "accurate", "ok",
+			"yep", "that's right", "that's true", "correct", "that's right", "that's true", "sure", "good", "confirm", "thumbs up"],
+		"no": ["no", "n", "nope", "👎", "ko", "uh-uh", "nix", "nixie", "nixy", "nixey", "nay", "nah", "no way",
+			"negative", "out of the question", "for foul nor fair", "not", "thumbs down", "pigs might fly", "fat chance",
+			"catch me", "go fish", "certainly not", "by no means", "of course not", "hardly"],
+		"cancel": ["cancel", "abort"]
+	},
+	"readyPrompt": "What can I do for you? \r (Choose one or type your own question)",
+	"profanity": "That hurt my feelings. 😓 If you are stuck, just type \"**help**\" and I'll tell you some hints.",
+	"restartCommand": "restart"
+}

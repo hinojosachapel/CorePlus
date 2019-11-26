@@ -1,0 +1,35 @@
+{
+    "name": "coreplus",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "id": "1",
+            "name": "endpoint",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://localhost:3978/api/messages"
+        },
+        {
+            "type": "luis",
+            "id": "20",
+            "name": "LUIS-en-US",
+            "appId": "<YOUR_APP_ID>",
+            "authoringKey": "<YOUR_AUTHORING_KEY>",
+            "subscriptionKey": "<YOUR_AUTHORING_KEY>",
+            "version": "0.1",
+            "region": "<YOUR_REGION>"
+        },
+        {
+            "type": "qna",
+            "id": "30",
+            "name": "QNA-en-US",
+            "kbId": "<Your_Knowledge_Base_Id>",
+            "subscriptionKey": "",
+            "endpointKey": "<Your_Endpoint_Key>",
+            "hostname": "https://your-qnamaker-app-name.azurewebsites.net/qnamaker"
+        }
+    ],
+    "padlock": "",
+    "version": "2.0"
+}
