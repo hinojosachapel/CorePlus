@@ -6,12 +6,13 @@
 
 // Import required packages
 import * as localizer from './dialogs/shared/localizer';
+import { LuisRecognizerDictionary, QnAMakerDictionary } from './dialogs/shared/types';
 
 // Import required Bot Builder
 import { DialogContext, DialogSet } from 'botbuilder-dialogs';
 import { LuisRecognizer, QnAMaker, QnAMakerOptions } from 'botbuilder-ai';
 import { ConversationState, UserState, TurnContext } from 'botbuilder';
-import { BotConfiguration } from 'botframework-config';
+import { BotConfiguration, IQnAService, ILuisService } from 'botframework-config';
 
 // Import main dialog
 import { MainDialog } from './dialogs/main';
@@ -64,14 +65,14 @@ export class CorePlusBot {
         if (!userState) throw new Error('Missing parameter.  userState is required');
         if (!botConfig) throw new Error('Missing parameter.  botConfig is required');
 
-        const luisRecognizers: { [key: string]: LuisRecognizer; } = {};
-        const qnaRecognizers: { [key: string]: QnAMaker; } = {};
+        const luisRecognizers: LuisRecognizerDictionary = {};
+        const qnaRecognizers: QnAMakerDictionary = {};
         const availableLocales: string[] = localizer.getLocales();
 
         // Add LUIS and QnAMaker recognizers for each locale
         availableLocales.forEach((locale) => {
-            // Add LUIS recognizer.
-            let luisConfig: any = botConfig.findServiceByNameOrId(LUIS_CONFIGURATION + locale);
+            // Add LUIS recognizers
+            const luisConfig: ILuisService = <ILuisService> botConfig.findServiceByNameOrId(LUIS_CONFIGURATION + locale);
 
             if (!luisConfig || !luisConfig.appId) {
                 throw new Error('Missing LUIS configuration for locale "' + locale + '".\n\n');
@@ -84,8 +85,8 @@ export class CorePlusBot {
                 endpoint: luisConfig.getEndpoint()
             }, undefined, true);
 
-            // Add QnAMaker recognizer.
-            let qnaConfig: any = botConfig.findServiceByNameOrId(QNA_CONFIGURATION + locale);
+            // Add QnAMaker recognizers
+            const qnaConfig: IQnAService = <IQnAService> botConfig.findServiceByNameOrId(QNA_CONFIGURATION + locale);
 
             if (!qnaConfig || !qnaConfig.kbId) {
                 throw new Error(`QnA Maker application information not found in .bot file. Please ensure you have all required QnA Maker applications created and available in the .bot file.\n\n`);

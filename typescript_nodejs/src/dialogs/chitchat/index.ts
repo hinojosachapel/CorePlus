@@ -13,6 +13,7 @@ import { UserData } from '../shared/userData';
 import { CancelDialog } from '../cancel';
 import { Utils } from '../shared/utils';
 import * as localizer from '../shared/localizer';
+import { StringDictionary } from '../shared/types';
 
 type IntentHandler = (dc: DialogContext) => Promise<boolean>;
 
@@ -56,7 +57,7 @@ export class ChitchatDialog extends ComponentDialog {
         }
 
         // This is not an interruption
-        return Promise.resolve(false);
+        return false;
     }
 
     /**
@@ -67,7 +68,7 @@ export class ChitchatDialog extends ComponentDialog {
     async cancelDialog(dc: DialogContext): Promise<boolean> {
         // Avoid "cancelling" the Cancel dialog.
         if (dc.activeDialog && dc.activeDialog.id === CancelDialog.name) {
-            return Promise.resolve(false);
+            return false;
         }
 
         if (!dc.activeDialog) {
@@ -76,13 +77,13 @@ export class ChitchatDialog extends ComponentDialog {
             const msg: string = localizer.gettext(locale, 'cancel.nothing');
             await dc.context.sendActivity(msg);
 
-            return Promise.resolve(true);
+            return true;
         }
 
         // This is a special case that leads to a new dialog,
         // so it's not handled as a normal interruption flow.
         await dc.beginDialog(CancelDialog.name);
-        return Promise.resolve(false);
+        return false;
     }
 
     /**
@@ -109,7 +110,7 @@ export class ChitchatDialog extends ComponentDialog {
             await Utils.showMainMenu(dc.context, locale);
         }
 
-        return Promise.resolve(true);
+        return true;
     }
 
     /**
@@ -122,10 +123,10 @@ export class ChitchatDialog extends ComponentDialog {
         const locale: string = userData.locale || localizer.getLocale();
 
         // Retrieve the jokes list.
-        const jokes: {} = localizer.getobject(locale, 'jokes');
+        const jokes: StringDictionary = localizer.getobject(locale, 'jokes');
 
         // Randomly select a joke from the list. Do not repeat the last one.
-        let jokeNumber;
+        let jokeNumber: string;
         do {
             jokeNumber = Utils.getRandomInt(0, Object.keys(jokes).length).toString();
         } while (jokeNumber === userData.jokeNumber);
@@ -134,7 +135,7 @@ export class ChitchatDialog extends ComponentDialog {
         userData.jokeNumber = jokeNumber;
         await this.userDataAccessor.set(dc.context, userData);
 
-        const parts = jokes[jokeNumber].split('&&');
+        const parts: string[] = jokes[jokeNumber].split('&&');
 
         // Send every joke part in a different bubble, leaving a short space time between them.
         for (let i = 0; i < parts.length; i++) {
@@ -142,7 +143,7 @@ export class ChitchatDialog extends ComponentDialog {
             await dc.context.sendActivity(parts[i]);
         }
 
-        return Promise.resolve(true);
+        return true;
     }
 
     /**
@@ -153,9 +154,9 @@ export class ChitchatDialog extends ComponentDialog {
     async profanityDialog(dc: DialogContext): Promise<boolean> {
         const userData: UserData = await this.userDataAccessor.get(dc.context, UserData.defaultEmpty);
         const locale: string = userData.locale || localizer.getLocale();
-        let msg: string = localizer.gettext(locale, 'profanity');
+        const msg: string = localizer.gettext(locale, 'profanity');
         await dc.context.sendActivity(msg);
 
-        return Promise.resolve(true);
+        return true;
     }
 }

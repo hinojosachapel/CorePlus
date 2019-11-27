@@ -206,8 +206,8 @@ class GreetingDialog extends ComponentDialog {
         const locale = userData.locale;
 
         // Display to the user their profile information and end dialog
-        let greet = localizer.gettext(locale, 'greeting.greetUser1');
-        greet = greet.replace('{userName}', userData.name).replace('{userCity}', userData.city);
+        // Here we use {{Mustache}} patterns: https://github.com/mashpie/i18n-node/blob/master/i18n.js#L543
+        let greet = localizer.gettext(locale, 'greeting.greetUser1', { "userName": userData.name || '', "userCity": userData.city || '' });
         await step.context.sendActivity(greet);
         await step.context.sendActivity(localizer.gettext(locale, 'greeting.greetUser2'));
 

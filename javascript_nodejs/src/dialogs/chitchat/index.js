@@ -139,7 +139,7 @@ class ChitchatDialog extends ComponentDialog {
      */
     async profanityDialog(dc) {
         const userData = await this.userDataAccessor.get(dc.context);
-        let msg = localizer.gettext(userData.locale, 'profanity');
+        const msg = localizer.gettext(userData.locale, 'profanity');
         await dc.context.sendActivity(msg);
 
         return true;

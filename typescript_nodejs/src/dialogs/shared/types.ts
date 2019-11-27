@@ -11,6 +11,10 @@ export type QnAMakerDictionary = {
     [key: string]: QnAMaker;
 }
 
+export type StringDictionary = {
+    [key: string]: string;
+}
+
 // Based on RecognizerResult
 // https://github.com/microsoft/botbuilder-js/blob/master/libraries/botbuilder-core/src/recognizerResult.ts
 export type StepOptions = {

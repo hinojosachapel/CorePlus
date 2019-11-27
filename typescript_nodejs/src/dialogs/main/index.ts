@@ -126,7 +126,7 @@ export class MainDialog extends ComponentDialog {
 
         // Handle commands
         if (utterance === localizer.gettext(locale, 'restartCommand')) {
-            let userData = new UserData();
+            const userData: UserData = new UserData();
             // Save locale and any other data you need to persist between resets
             userData.locale = locale;
             await this.userDataAccessor.set(dc.context, userData);

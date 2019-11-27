@@ -60,14 +60,14 @@ class CorePlusBot {
         if (!userState) throw new Error('Missing parameter.  userState is required');
         if (!botConfig) throw new Error('Missing parameter.  botConfig is required');
 
-        let luisRecognizers = {};
-        let qnaRecognizers = {};
-        let availableLocales = localizer.getLocales();
+        const luisRecognizers = {};
+        const qnaRecognizers = {};
+        const availableLocales = localizer.getLocales();
 
         // Add LUIS and QnAMaker recognizers for each locale
         availableLocales.forEach((locale) => {
-            // Add LUIS recognizer.
-            let luisConfig = botConfig.findServiceByNameOrId(LUIS_CONFIGURATION + locale);
+            // Add LUIS recognizers
+            const luisConfig = botConfig.findServiceByNameOrId(LUIS_CONFIGURATION + locale);
 
             if (!luisConfig || !luisConfig.appId) {
                 throw new Error('Missing LUIS configuration for locale "' + locale + '".\n\n');
@@ -80,8 +80,8 @@ class CorePlusBot {
                 endpoint: luisConfig.getEndpoint()
             }, undefined, true);
 
-            // Add QnAMaker recognizer.
-            let qnaConfig = botConfig.findServiceByNameOrId(QNA_CONFIGURATION + locale);
+            // Add QnAMaker recognizers
+            const qnaConfig = botConfig.findServiceByNameOrId(QNA_CONFIGURATION + locale);
 
             if (!qnaConfig || !qnaConfig.kbId) {
                 throw new Error(`QnA Maker application information not found in .bot file. Please ensure you have all required QnA Maker applications created and available in the .bot file.\n\n`);

@@ -1,5 +1,5 @@
 node_modules
-lib
+build
 *.env
 private
 .DS_Store

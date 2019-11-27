@@ -9,10 +9,10 @@
  * Put here all the user data that should be persisted througout the conversation
  */
 export class UserData {
-    public jokeNumber: number;
+    public jokeNumber: string;
     public static readonly defaultEmpty = new UserData();
 
     constructor(public name?: string, public city?: string, public locale?: string) {
-        this.jokeNumber = 0;
+        this.jokeNumber = '';
     }
 };

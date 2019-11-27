@@ -171,7 +171,7 @@ export class GreetingDialog extends ComponentDialog {
         const locale: string = userData.locale || localizer.getLocale();
 
         // Validate that the user entered a minimum length for their name
-        const value = (validatorContext.recognized.value || '').trim();
+        const value: string = (validatorContext.recognized.value || '').trim();
 
         if (value.length >= NAME_LENGTH_MIN) {
             return VALIDATION_SUCCEEDED;
@@ -191,7 +191,7 @@ export class GreetingDialog extends ComponentDialog {
         const locale: string = userData.locale || localizer.getLocale();
 
         // Validate that the user entered a minimum length for their name
-        const value = (validatorContext.recognized.value || '').trim();
+        const value: string = (validatorContext.recognized.value || '').trim();
 
         if (value.length >= CITY_LENGTH_MIN) {
             return VALIDATION_SUCCEEDED;
@@ -211,8 +211,8 @@ export class GreetingDialog extends ComponentDialog {
         const locale: string = userData.locale || localizer.getLocale();
 
         // Display to the user their profile information and end dialog
-        let greet: string = localizer.gettext(locale, 'greeting.greetUser1');
-        greet = greet.replace('{userName}', userData.name || '').replace('{userCity}', userData.city || '');
+        // Here we use {{Mustache}} patterns: https://github.com/mashpie/i18n-node/blob/master/i18n.js#L543
+        let greet: string = localizer.gettext(locale, 'greeting.greetUser1', { "userName": userData.name || '', "userCity": userData.city || '' });
         await step.context.sendActivity(greet);
         await step.context.sendActivity(localizer.gettext(locale, 'greeting.greetUser2'));
 
@@ -229,7 +229,7 @@ export class GreetingDialog extends ComponentDialog {
         // Do we have any entities?
         if (Object.keys(entities).length !== 1) {
             // get userProfile object using the accessor
-        const userData = await this.userDataAccessor.get(context, UserData.defaultEmpty);
+        const userData: UserData = await this.userDataAccessor.get(context, UserData.defaultEmpty);
 
             // see if we have any user name entities
             USER_NAME_ENTITIES.forEach(name => {
