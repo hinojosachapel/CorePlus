@@ -85,7 +85,7 @@
 - Select `development.bot` file
 
 # About the .bot file
-With the 4.3 release of the Bot Framework, Microsoft moved away from using .bot files. The .bot file [has been deprecated](https://docs.microsoft.com/en-us/azure/bot-service/bot-file-basics?view=azure-bot-service-4.0&tabs=js). The new recommended solution for managing resources is to use appsettings.json or .env file instead of the .bot file. So, I'll be updating the project in a near future accordingly.
+With the 4.3 release of the Bot Framework, Microsoft moved away from using .bot files. The .bot file [has been deprecated](https://docs.microsoft.com/en-us/azure/bot-service/bot-file-basics?view=azure-bot-service-4.0&tabs=js). The new recommended solution for managing resources is to use appsettings.json or .env file instead of the .bot file. So, I'll be updating the project in the near future accordingly.
 
 # Further reading
 - [CorePlus: a Microsoft Bot Framework v4 template][50]

@@ -10,7 +10,7 @@
 		"cityPrompt": "Hello %s, what city do you live in?",
 		"validateName": "Names need to be at least %s characters long.",
 		"validateCity": "City names needs to be at least %s characters long.",
-		"greetUser1": "Hi {userName}, from {userCity}, nice to meet you!",
+		"greetUser1": "Hi {{userName}}, from {{userCity}}, nice to meet you!",
 		"greetUser2": "You can always say \"My name is <your name>\" or \"I live in <your city>\" to reintroduce yourself to me."
 	},
 	"qna": {

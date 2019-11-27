@@ -7,7 +7,7 @@ import { QnAMakerDictionary } from '../shared/types';
 import { UserData } from '../shared/userData';
 
 // Import required Bot Builder
-import { ComponentDialog, ChoicePrompt, DialogTurnResult, FoundChoice, PromptValidatorContext, WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
+import { ComponentDialog, Choice, ChoicePrompt, DialogTurnResult, FoundChoice, PromptValidatorContext, WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
 import { StatePropertyAccessor } from 'botbuilder';
 
 // Import Utils for sendTyping() function
@@ -77,9 +77,9 @@ export class QnADialog extends ComponentDialog {
         const userData: UserData = await this.userDataAccessor.get(step.context, UserData.defaultEmpty);
         const locale: string = userData.locale || localizer.getLocale();
 
-        const prompt = localizer.gettext(locale, 'qna.requestFeedback');
-        const choiceYes = Utils.getChoiceYes(locale, 'qna.helpful');
-        const choiceNo = Utils.getChoiceNo(locale, 'qna.notHepful');
+        const prompt: string = localizer.gettext(locale, 'qna.requestFeedback');
+        const choiceYes: Choice = Utils.getChoiceYes(locale, 'qna.helpful');
+        const choiceNo: Choice = Utils.getChoiceNo(locale, 'qna.notHepful');
 
         return await step.prompt(ASK_FEEDBACK_PROMPT, prompt, [choiceYes, choiceNo]);
     }

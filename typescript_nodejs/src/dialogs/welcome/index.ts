@@ -11,6 +11,7 @@ import { ComponentDialog, DialogTurnResult, WaterfallDialog, WaterfallStepContex
 import { Activity, CardFactory, StatePropertyAccessor } from 'botbuilder';
 
 import * as welcomeCard from './resources/welcomeCard.json';
+import { Attachment } from 'botbuilder-core';
 
 // Dialog IDs
 const WELCOME_DIALOG: string = 'welcomeDialog';
@@ -56,14 +57,14 @@ export class WelcomeDialog extends ComponentDialog {
         welcomeCard.body[1].text = localizer.gettext(locale, 'welcome.tittle');
 
         // Restart command should be localized.
-        const restartCommand = localizer.gettext(locale, 'restartCommand');
+        const restartCommand: string = localizer.gettext(locale, 'restartCommand');
         welcomeCard.body[2].text = localizer.gettext(locale, 'welcome.subtittle', restartCommand);
 
         welcomeCard.actions[0].title = localizer.gettext(locale, 'welcome.privacy');
-        const language = locale.substring(0, 2);
+        const language: string = locale.substring(0, 2);
         welcomeCard.actions[0].url = process.env.publicResourcesUrl + '/public/privacy_policy_' + language + '.pdf';
 
-        const card = CardFactory.adaptiveCard(welcomeCard);
+        const card: Attachment = CardFactory.adaptiveCard(welcomeCard);
         return { attachments: [card] };
     }
 }

@@ -5,6 +5,7 @@ import { Activity, CardFactory, CardAction } from 'botbuilder';
 import { TurnContext, Attachment } from 'botbuilder-core';
 import { Choice } from 'botbuilder-dialogs';
 import * as localizer from './localizer';
+import { StringDictionary } from './types';
 
 export class Utils {
     /**
@@ -51,7 +52,7 @@ export class Utils {
      * @param {String} locale user's locale.
      */
     static async showMainMenu(context: TurnContext, locale: string | undefined): Promise<void> {
-        const hints: string = localizer.gettext(locale, 'hints');
+        const hints: StringDictionary = localizer.getobject(locale, 'hints');
         const buttons: string[] = [];
 
         Object.values(hints).forEach(value => {
@@ -70,10 +71,10 @@ export class Utils {
      */
     static getChoiceYes(locale: string | undefined, titleKey: string, moreSynonymsKey?: string): Choice {
         const title: string = localizer.gettext(locale, titleKey);
-        let yesSynonyms: string[] = localizer.gettextarray(locale, 'synonyms.yes') as string[];
+        let yesSynonyms: string[] = localizer.gettextarray(locale, 'synonyms.yes');
 
         if (moreSynonymsKey) {
-            const moreSynonyms: string[] = localizer.gettextarray(locale, moreSynonymsKey) as string[];
+            const moreSynonyms: string[] = localizer.gettextarray(locale, moreSynonymsKey);
             yesSynonyms = yesSynonyms.concat(moreSynonyms);
         }
 
