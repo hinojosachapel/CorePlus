@@ -61,6 +61,6 @@ This template is released under the terms of the MIT License. See [License](../m
 [16]: https://azure.microsoft.com/en-us/pricing/details/cognitive-services/language-understanding-intelligent-services/
 [17]: https://azure.microsoft.com/en-us/pricing/details/cognitive-services/qna-maker/
 [18]: https://code.visualstudio.com/
-[19]: https://github.com/Microsoft/BotFramework-WebChat/tree/master/samples/12.customization-minimizable-web-chat
+[19]: https://github.com/microsoft/BotFramework-WebChat/tree/master/samples/06.recomposing-ui/a.minimizable-web-chat
 [20]: https://www.codeproject.com/Articles/4254785/CorePlus-a-Microsoft-Bot-Framework-v4-template
 [21]: https://youtu.be/TbZOKtZHsnk
