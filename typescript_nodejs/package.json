@@ -6,44 +6,45 @@
     "license": "MIT",
     "main": "index.js",
     "scripts": {
-        "start": "tsc --build && node ./build/index.js",
-        "watch": "nodemon build/index.js",
-        "lint": "./node_modules/.bin/eslint .",
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc --build && npm run copy:assets",
+        "start": "npm run build && node ./build/index.js",
+        "copy:assets": "npm run config && npm run jsonfiles && npm run public && npm run webchat",
         "config": "copyfiles --all --up 1 \"./src/config/*.*\" ./build",
-        "json-files": "copyfiles --up 1 \"./src/**/*.json\" ./build && echo 'JSON files copied.'",
+        "jsonfiles": "copyfiles --up 1 \"./src/**/*.json\" ./build && echo 'JSON files copied.'",
         "public": "copyfiles --up 1 \"./src/public/*.*\" ./build",
         "webchat": "copyfiles --up 1 \"./src/webchat/*.*\" ./build",
-        "build": "tsc --p tsconfig.json && npm run config && npm run json-files && npm run public && npm run webchat"
+        "watch": "nodemon build/index.js",
+        "lint": "./node_modules/.bin/eslint .",
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
         "type": "git",
         "url": "https://github.com/hinojosachapel/CorePlus"
     },
     "dependencies": {
-        "botbuilder": "^4.2.0",
-        "botbuilder-ai": "^4.2.0",
-        "botbuilder-core": "^4.2.0",
-        "botbuilder-dialogs": "^4.2.0",
-        "botframework-config": "^4.2.0",
-        "botframework-connector": "^4.2.0",
-        "botframework-schema": "^4.2.0",
+        "botbuilder": "^4.7.1",
+        "botbuilder-ai": "^4.7.1",
+        "botbuilder-core": "^4.7.1",
+        "botbuilder-dialogs": "^4.7.1",
+        "botframework-config": "^4.7.1",
+        "botframework-connector": "^4.7.1",
+        "botframework-schema": "^4.7.1",
         "dotenv": "^6.1.0",
-        "i18n": "^0.8.3",
+        "i18n": "^0.8.5",
         "restify": "^7.2.3"
     },
     "devDependencies": {
         "@types/i18n": "^0.8.6",
         "@types/restify": "8.4.1",
-        "copyfiles": "^2.1.1",
+        "copyfiles": "^2.2.0",
         "eslint": "^5.8.0",
         "eslint-config-standard": "^12.0.0",
-        "eslint-plugin-import": "^2.14.0",
+        "eslint-plugin-import": "^2.20.0",
         "eslint-plugin-node": "^8.0.0",
         "eslint-plugin-promise": "^4.0.1",
         "eslint-plugin-standard": "^4.0.0",
-        "nodemon": "^1.18.7",
-        "ts-node": "^8.5.0",
-        "typescript": "^3.7.2"
+        "nodemon": "^1.19.4",
+        "ts-node": "^8.6.2",
+        "typescript": "^3.7.5"
     }
 }
