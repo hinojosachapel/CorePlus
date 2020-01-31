@@ -7,9 +7,9 @@ import { LuisRecognizerDictionary, QnAMakerDictionary } from '../shared/types';
 import { UserData } from '../shared/userData';
 
 // Import required Bot Builder
-import { ComponentDialog, DialogContext, DialogTurnStatus, DialogTurnResult, DialogState } from 'botbuilder-dialogs';
-import { LuisRecognizer, QnAMaker } from 'botbuilder-ai';
-import { ActivityTypes, ConversationState, UserState, StatePropertyAccessor, RecognizerResult, TurnContext } from 'botbuilder';
+import { ComponentDialog, DialogContext, DialogSet, DialogTurnStatus, DialogTurnResult, DialogState } from 'botbuilder-dialogs';
+import { LuisRecognizer } from 'botbuilder-ai';
+import { ActivityTypes, UserState, StatePropertyAccessor, RecognizerResult, TurnContext } from 'botbuilder';
 
 // Import dialogs.
 import { CancelDialog, ChitchatDialog, GreetingDialog, QnADialog, WelcomeDialog } from '../';
@@ -29,37 +29,56 @@ const DIALOG_TURN_RESULT_DEFAULT: DialogTurnResult = { status: DialogTurnStatus.
 
 /**
  *
- * @param {PropertyStateAccessor} userDataAccessor property accessor for user state
+ * @param {LuisRecognizerDictionary} luisRecognizers dictionary of LUIS Recognisers
+ * @param {QnAMakerDictionary} qnaRecognizers dictionary of QnAMaker Recognisers
+ * @param {UserState} userState property for user state
  */
 export class MainDialog extends ComponentDialog {
     private readonly luisRecognizers: LuisRecognizerDictionary;
-    private readonly conversationState: ConversationState;
-    private readonly userState: UserState;
     private readonly userDataAccessor: StatePropertyAccessor<UserData>;
     private readonly chitchatDialog: ChitchatDialog;
 
-    constructor(luisRecognizers: LuisRecognizerDictionary, qnaRecognizers: QnAMakerDictionary, conversationState: ConversationState, userState: UserState) {
+    constructor(luisRecognizers: LuisRecognizerDictionary, qnaRecognizers: QnAMakerDictionary, userState: UserState) {
         super(MainDialog.name);
 
         // validate what was passed in
-        if (!luisRecognizers) throw new Error('Missing parameter.  luisRecognizers is required');
-        if (!qnaRecognizers) throw new Error('Missing parameter.  qnaRecognizers is required');
-        if (!conversationState) throw new Error('Missing parameter.  conversationState is required');
-        if (!userState) throw new Error('Missing parameter.  userState is required');
+        if (!luisRecognizers) throw new Error('Missing parameter. luisRecognizers is required');
+        if (!qnaRecognizers) throw new Error('Missing parameter. qnaRecognizers is required');
+        if (!userState) throw new Error('Missing parameter. userState is required');
+        
+        this.luisRecognizers = luisRecognizers;
 
-        // Create the property accessors for user and conversation state
+        // Create the property accessors for user state
         this.userDataAccessor = userState.createProperty<UserData>(USER_DATA_PROPERTY);
 
         // Add the dialogs to the set
-        this.addDialog(new QnADialog(this.userDataAccessor, qnaRecognizers));
-        this.addDialog(new CancelDialog(this.userDataAccessor));
-        this.addDialog(new GreetingDialog(this.userDataAccessor));
-        this.addDialog(new WelcomeDialog(this.userDataAccessor));
+        this.addDialog(new QnADialog(this.userDataAccessor, qnaRecognizers))
+            .addDialog(new CancelDialog(this.userDataAccessor))
+            .addDialog(new GreetingDialog(this.userDataAccessor))
+            .addDialog(new WelcomeDialog(this.userDataAccessor));
 
         this.chitchatDialog = new ChitchatDialog(this.userDataAccessor);
-        this.conversationState = conversationState;
-        this.userState = userState;
-        this.luisRecognizers = luisRecognizers;
+    }
+
+    /**
+     * The run method handles the incoming activity (in the form of a TurnContext) and passes it through the dialog system.
+     * If no dialog is active, it will start the default dialog.
+     * @param {TurnContext} turnContext
+     * @param {StatePropertyAccessor<DialogState>} accessor
+     */
+    async run(turnContext: TurnContext, accessor: StatePropertyAccessor<DialogState> | undefined): Promise<void> {
+        const dialogSet: DialogSet = new DialogSet(accessor);
+        dialogSet.add(this);
+
+        // Create a dialog context
+        const dialogContext: DialogContext = await dialogSet.createContext(turnContext);
+
+        const results = await dialogContext.continueDialog();
+
+        // Begin main dialog if no outstanding dialogs
+        if (results.status === DialogTurnStatus.empty) {
+            await dialogContext.beginDialog(this.id);
+        }
     }
 
     /**
@@ -112,10 +131,6 @@ export class MainDialog extends ComponentDialog {
             // Handle other activity types as needed.
             break;
         }
-
-        // make sure to persist state at the end of a turn.
-        await this.conversationState.saveChanges(context);
-        await this.userState.saveChanges(context);
 
         return turnResult;
     }
@@ -220,9 +235,9 @@ export class MainDialog extends ComponentDialog {
             for (var idx in context.activity.membersAdded) {
                 // Greet anyone that was not the target (recipient) of this message
                 // 'bot' is the recipient for events from the channel,
-                // context.activity.membersAdded === context.activity.recipient.Id indicates the
+                // context.activity.membersAdded !== context.activity.recipient.Id indicates the
                 // bot was added to the conversation.
-                if (context.activity.membersAdded[idx].id === context.activity.recipient.id) {
+                if (context.activity.membersAdded[idx].id !== context.activity.recipient.id) {
                     // Welcome user.
                     // When activity type is "conversationUpdate" and the member joining the conversation is the bot
                     // we will send our Welcome Adaptive Card.  This will only be sent once, when the Bot joins conversation
