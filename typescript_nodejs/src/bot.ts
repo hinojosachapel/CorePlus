@@ -4,33 +4,15 @@
 
 // bot.js is your main bot dialog entry point for handling activity types
 
-// Import required packages
-import * as localizer from './dialogs/shared/localizer';
-import { LuisRecognizerDictionary, QnAMakerDictionary } from './dialogs/shared/types';
-
 // Import required Bot Builder
-import { DialogContext, DialogSet } from 'botbuilder-dialogs';
-import { LuisRecognizer, QnAMaker, QnAMakerOptions } from 'botbuilder-ai';
-import { ConversationState, UserState, TurnContext } from 'botbuilder';
-import { BotConfiguration, IQnAService, ILuisService } from 'botframework-config';
+import { Dialog, DialogState } from 'botbuilder-dialogs';
+import { ActivityHandler, ConversationState, UserState, StatePropertyAccessor, TurnContext } from 'botbuilder';
 
-// Import main dialog
+// Import main dialog.
 import { MainDialog } from './dialogs/main';
 
 // State Accessor Properties
 const DIALOG_STATE_PROPERTY: string = 'dialogState';
-
-// Name of the QnA Maker service in the .bot file without the locale key.
-const QNA_CONFIGURATION: string = 'QNA-';
-
-// LUIS service type entry as defined in the .bot file without the locale key.
-const LUIS_CONFIGURATION: string = 'LUIS-';
-
-// CONSTS used in QnA Maker query.
-const QNA_MAKER_OPTIONS: QnAMakerOptions = {
-    scoreThreshold: 0.5,
-    top: 1
-};
 
 /**
  * Demonstrates the following concepts:
@@ -45,8 +27,11 @@ const QNA_MAKER_OPTIONS: QnAMakerOptions = {
  *  Send typing indicator messages when you consider appropriate
  *  Internationalization and multilingual conversation
  */
-export class CorePlusBot {
-    private readonly dialogs: DialogSet;
+export class CorePlusBot extends ActivityHandler {
+    private readonly conversationState: ConversationState;
+    private readonly userState: UserState;
+    private readonly dialog: Dialog;
+    private readonly dialogState: StatePropertyAccessor<DialogState>;
 
     /**
      * Constructs the five pieces necessary for this bot to operate:
@@ -58,70 +43,49 @@ export class CorePlusBot {
      *
      * @param {ConversationState} conversationState property accessor
      * @param {UserState} userState property accessor
-     * @param {BotConfiguration} botConfig contents of the .bot file
+     * @param {Dialog} dialog main dialog
      */
-    constructor(conversationState: ConversationState, userState: UserState, botConfig: BotConfiguration) {
+    constructor(conversationState: ConversationState, userState: UserState, dialog: Dialog) {
+        super();
+
         if (!conversationState) throw new Error('Missing parameter.  conversationState is required');
         if (!userState) throw new Error('Missing parameter.  userState is required');
-        if (!botConfig) throw new Error('Missing parameter.  botConfig is required');
+        if (!dialog) throw new Error('Missing parameter. dialog is required');
 
-        const luisRecognizers: LuisRecognizerDictionary = {};
-        const qnaRecognizers: QnAMakerDictionary = {};
-        const availableLocales: string[] = localizer.getLocales();
-
-        // Add LUIS and QnAMaker recognizers for each locale
-        availableLocales.forEach((locale) => {
-            // Add LUIS recognizers
-            const luisConfig: ILuisService = <ILuisService> botConfig.findServiceByNameOrId(LUIS_CONFIGURATION + locale);
-
-            if (!luisConfig || !luisConfig.appId) {
-                throw new Error('Missing LUIS configuration for locale "' + locale + '".\n\n');
-            }
-
-            luisRecognizers[locale] = new LuisRecognizer({
-                applicationId: luisConfig.appId,
-                // CAUTION: Its better to assign and use a subscription key instead of authoring key here.
-                endpointKey: luisConfig.subscriptionKey,
-                endpoint: luisConfig.getEndpoint()
-            }, undefined, true);
-
-            // Add QnAMaker recognizers
-            const qnaConfig: IQnAService = <IQnAService> botConfig.findServiceByNameOrId(QNA_CONFIGURATION + locale);
-
-            if (!qnaConfig || !qnaConfig.kbId) {
-                throw new Error(`QnA Maker application information not found in .bot file. Please ensure you have all required QnA Maker applications created and available in the .bot file.\n\n`);
-            }
-
-            qnaRecognizers[locale] = new QnAMaker({
-                knowledgeBaseId: qnaConfig.kbId,
-                endpointKey: qnaConfig.endpointKey,
-                host: qnaConfig.hostname
-            }, QNA_MAKER_OPTIONS);
-        });
+        this.conversationState = conversationState;
+        this.userState = userState;
+        this.dialog = dialog;
 
         // Create the property accessors for conversation state
-        const dialogState = conversationState.createProperty(DIALOG_STATE_PROPERTY);
+        this.dialogState = conversationState.createProperty(DIALOG_STATE_PROPERTY);
 
-        // Create top-level dialog
-        this.dialogs = new DialogSet(dialogState);
+        this.onMessage(async (context: TurnContext, next: () => Promise<void>): Promise<any> => {
+            console.log('Running dialog with Message Activity.');
 
-        // Add the main root dialog to the set
-        this.dialogs.add(new MainDialog(luisRecognizers, qnaRecognizers, conversationState, userState));
-    }
+            // Run the Dialog with the new message Activity.
+            await (this.dialog as MainDialog).run(context, this.dialogState);
 
-    /**
-     * Run every turn of the conversation. Handles orchestration of messages.
-     */
-    async onTurn(turnContext: TurnContext): Promise<void> {
-        // Create a dialog context
-        const dc: DialogContext = await this.dialogs.createContext(turnContext);
+            // By calling next() you ensure that the next BotHandler is run.
+            await next();
+        });
 
-        // Continue outstanding dialogs.
-        await dc.continueDialog();
+        this.onDialog(async (context: TurnContext, next: () => Promise<void>): Promise<any> => {
+            // Save any state changes. The load happened during the execution of the Dialog.
+            await this.conversationState.saveChanges(context, false);
+            await this.userState.saveChanges(context, false);
 
-        // Begin main dialog if no outstanding dialogs / no one responded.
-        if (!dc.context.responded) {
-            await dc.beginDialog(MainDialog.name);
-        }
+            // By calling next() you ensure that the next BotHandler is run.
+            await next();
+        });
+
+        this.onMembersAdded(async (context: TurnContext, next: () => Promise<void>): Promise<any> => {
+            console.log('Running dialog with MembersAdded Activity.');
+
+            // Run the Dialog with the new MembersAdded Activity.
+            await (this.dialog as MainDialog).run(context, this.dialogState);
+
+            // By calling next() you ensure that the next BotHandler is run.
+            await next();
+        });
     }
 }

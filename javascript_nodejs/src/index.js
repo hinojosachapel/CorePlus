@@ -11,10 +11,13 @@ const localizer = require('i18n');
 
 // Import required bot services. See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
+const { LuisRecognizer, QnAMaker } = require('botbuilder-ai');
+
 // Import required bot configuration.
 const { BotConfiguration } = require('botframework-config');
 
 // This bot's main dialog.
+const { MainDialog } = require('./dialogs/main');
 const { CorePlusBot } = require('./bot');
 
 // Read botFilePath and botFileSecret from .env file.
@@ -26,6 +29,18 @@ require('dotenv').config({ path: ENV_FILE });
 // See https://aka.ms/about-bot-file to learn more about .bot file its use and bot configuration.
 const NODE_ENV = (process.env.NODE_ENV || 'development');
 const BOT_FILE = path.join(__dirname, 'config/' + NODE_ENV + '.bot');
+
+// Name of the QnA Maker service in the .bot file without the locale key.
+const QNA_CONFIGURATION = 'QNA-';
+
+// LUIS service type entry as defined in the .bot file without the locale key.
+const LUIS_CONFIGURATION = 'LUIS-';
+
+// CONSTS used in QnA Maker query.
+const QNA_MAKER_OPTIONS = {
+    scoreThreshold: 0.5,
+    top: 1
+};
 
 // See https://aka.ms/bot-file-encryption to learn about Bot Secrets.
 // If you encrypt your .bot file, the botFileSecret key in the .env file should hold the secret key created with the MSBot tool.
@@ -105,10 +120,47 @@ localizer.gettext = function(locale, key, args) {
     return this.__({ phrase: key, locale: locale }, args);
 };
 
+const luisRecognizers = {};
+const qnaRecognizers = {};
+const availableLocales = localizer.getLocales();
+
+// Add LUIS and QnAMaker recognizers for each locale
+availableLocales.forEach((locale) => {
+    // Add LUIS recognizers
+    const luisConfig = botConfig.findServiceByNameOrId(LUIS_CONFIGURATION + locale);
+
+    if (!luisConfig || !luisConfig.appId) {
+        throw new Error('Missing LUIS configuration for locale "' + locale + '".\n\n');
+    }
+
+    luisRecognizers[locale] = new LuisRecognizer({
+        applicationId: luisConfig.appId,
+        // CAUTION: Its better to assign and use a subscription key instead of authoring key here.
+        endpointKey: luisConfig.subscriptionKey,
+        endpoint: luisConfig.getEndpoint()
+    }, undefined, true);
+
+    // Add QnAMaker recognizers
+    const qnaConfig = botConfig.findServiceByNameOrId(QNA_CONFIGURATION + locale);
+
+    if (!qnaConfig || !qnaConfig.kbId) {
+        throw new Error(`QnA Maker application information not found in .bot file. Please ensure you have all required QnA Maker applications created and available in the .bot file.\n\n`);
+    }
+
+    qnaRecognizers[locale] = new QnAMaker({
+        knowledgeBaseId: qnaConfig.kbId,
+        endpointKey: qnaConfig.endpointKey,
+        host: qnaConfig.hostname
+    }, QNA_MAKER_OPTIONS);
+});
+
 // Create the main dialog.
+const mainDialog = new MainDialog(luisRecognizers, qnaRecognizers, userState);
+
+// Create the bot's main handler.
 let bot;
 try {
-    bot = new CorePlusBot(conversationState, userState, botConfig);
+    bot = new CorePlusBot(conversationState, userState, mainDialog);
 } catch (err) {
     console.error(`[botInitializationError]: ${ err }`);
     process.exit();
@@ -132,6 +184,6 @@ server.post('/api/messages', (req, res) => {
     // Route received a request to adapter for processing
     adapter.processActivity(req, res, async (turnContext) => {
         // route to bot activity handler.
-        await bot.onTurn(turnContext);
+        await bot.run(turnContext);
     });
 });
