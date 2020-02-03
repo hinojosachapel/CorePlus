@@ -1,5 +1,5 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Copyright (c) 2019 Rubén Hinojosa Chapel. All rights reserved.
+// Copyright (c) Rubén Hinojosa Chapel. All rights reserved.
 // Licensed under the MIT License.
 
 // defines the greeting dialog
@@ -212,7 +212,7 @@ export class GreetingDialog extends ComponentDialog {
 
         // Display to the user their profile information and end dialog
         // Here we use {{Mustache}} patterns: https://github.com/mashpie/i18n-node/blob/master/i18n.js#L543
-        let greet: string = localizer.gettext(locale, 'greeting.greetUser1', { "userName": userData.name || '', "userCity": userData.city || '' });
+        const greet: string = localizer.gettext(locale, 'greeting.greetUser1', { "userName": userData.name || '', "userCity": userData.city || '' });
         await step.context.sendActivity(greet);
         await step.context.sendActivity(localizer.gettext(locale, 'greeting.greetUser2'));
 
