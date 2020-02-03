@@ -1,5 +1,5 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Copyright (c) 2019 Rubén Hinojosa Chapel. All rights reserved.
+// Copyright (c) Rubén Hinojosa Chapel. All rights reserved.
 // Licensed under the MIT License.
 
 // index.js is used to setup and configure your bot
@@ -12,23 +12,14 @@ const localizer = require('i18n');
 // Import required bot services. See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
 const { LuisRecognizer, QnAMaker } = require('botbuilder-ai');
-
-// Import required bot configuration.
-const { BotConfiguration } = require('botframework-config');
+const { CosmosDbStorage } = require('botbuilder-azure');
 
 // This bot's main dialog.
 const { MainDialog } = require('./dialogs/main');
 const { CorePlusBot } = require('./bot');
 
-// Read botFilePath and botFileSecret from .env file.
-// Note: Ensure you have a .env file and include botFilePath and botFileSecret.
-const ENV_FILE = path.join(__dirname, 'config/.env');
-require('dotenv').config({ path: ENV_FILE });
-
-// Get the .bot file path. Here we use one file per NODE_ENV. In Azure you should create 'config/production.bot' file.
-// See https://aka.ms/about-bot-file to learn more about .bot file its use and bot configuration.
-const NODE_ENV = (process.env.NODE_ENV || 'development');
-const BOT_FILE = path.join(__dirname, 'config/' + NODE_ENV + '.bot');
+const DEV_ENV = 'local';
+const NODE_ENV = (process.env.NODE_ENV || DEV_ENV);
 
 // Name of the QnA Maker service in the .bot file without the locale key.
 const QNA_CONFIGURATION = 'QNA-';
@@ -42,31 +33,23 @@ const QNA_MAKER_OPTIONS = {
     top: 1
 };
 
-// See https://aka.ms/bot-file-encryption to learn about Bot Secrets.
-// If you encrypt your .bot file, the botFileSecret key in the .env file should hold the secret key created with the MSBot tool.
-// Note that the .env file is listed in the .gitignore file, so it won't be checked into your source control.
-// More info at: http://martink.me/articles/managing-secrets-with-bot-files-in-bot-framework-v4
-
-let botConfig;
-try {
-    // Read bot configuration from .bot file.
-    botConfig = BotConfiguration.loadSync(BOT_FILE, process.env.botFileSecret);
-} catch (err) {
-    console.error(`\nError reading bot file. Please ensure you have valid botFilePath and botFileSecret set for your environment.`);
-    console.error(`\n - The botFileSecret is available under appsettings for your Azure Bot Service bot.`);
-    console.error(`\n - If you are running this bot locally, consider adding a .env file with botFilePath and botFileSecret.`);
-    console.error(`\n - See https://aka.ms/about-bot-file to learn more about .bot file its use and bot configuration.\n\n`);
-    process.exit();
+let appsettingsPath;
+if (NODE_ENV === DEV_ENV) {
+    // Avoid uploading sensitive information like appsettings.json file to your source code repository.
+    // Here we store that file inside a Git ignored folder for development purposes.
+    appsettingsPath = path.join(__dirname, 'config/private/appsettings.json');
+} else {
+    appsettingsPath = path.join(__dirname, 'config/appsettings.json');
 }
 
-// Get bot endpoint configuration by service name
-const endpointConfig = botConfig.findServiceByNameOrId('endpoint');
+const appsettings = require(appsettingsPath);
+process.env.publicResourcesUrl = appsettings.publicResourcesUrl;
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about adapters and how bots work.
 const adapter = new BotFrameworkAdapter({
-    appId: endpointConfig.appId || process.env.microsoftAppID,
-    appPassword: endpointConfig.appPassword || process.env.microsoftAppPassword
+    appId: appsettings.microsoftAppId || process.env.microsoftAppID,
+    appPassword: appsettings.microsoftAppPassword || process.env.microsoftAppPassword
 });
 
 // Catch-all for errors.
@@ -86,26 +69,21 @@ adapter.onTurnError = async (context, error) => {
 // A bot requires a state store to persist the dialog and user state between messages.
 let conversationState, userState;
 
-// For local development, in-memory storage is used.
-// CAUTION: The Memory Storage used here is for local bot debugging only. When the bot
-// is restarted, anything stored in memory will be gone.
-const memoryStorage = new MemoryStorage();
-conversationState = new ConversationState(memoryStorage);
-userState = new UserState(memoryStorage);
+let storage;
 
-// CAUTION: You must ensure your product environment has the NODE_ENV set
-//          to use the Azure Blob storage or Azure Cosmos DB providers.
+if (NODE_ENV === DEV_ENV) {
+    // Use in-memory storage when process.env.NODE_ENV === 'local',
+    // use  Azure Blob storage or Azure Cosmos DB otherwise.
+    // For local development, in-memory storage is used.
+    // CAUTION: The Memory Storage used here is for local bot debugging only. When the bot
+    // is restarted, anything stored in memory will be gone.
+    storage = new MemoryStorage();
+} else {
+    storage = new CosmosDbStorage(appsettings.cosmosDb);
+}
 
-// Add botbuilder-azure when using any Azure services.
-// const { BlobStorage } = require('botbuilder-azure');
-// // Get service configuration
-// const blobStorageConfig = botConfig.findServiceByNameOrId(STORAGE_CONFIGURATION_ID);
-// const blobStorage = new BlobStorage({
-//     containerName: (blobStorageConfig.container || DEFAULT_BOT_CONTAINER),
-//     storageAccountOrConnectionString: blobStorageConfig.connectionString,
-// });
-// conversationState = new ConversationState(blobStorage);
-// userState = new UserState(blobStorage);
+conversationState = new ConversationState(storage);
+userState = new UserState(storage);
 
 // Configure localizer
 localizer.configure({
@@ -126,25 +104,25 @@ const availableLocales = localizer.getLocales();
 
 // Add LUIS and QnAMaker recognizers for each locale
 availableLocales.forEach((locale) => {
-    // Add LUIS recognizers
-    const luisConfig = botConfig.findServiceByNameOrId(LUIS_CONFIGURATION + locale);
+    // Add the LUIS recognizer.
+    let luisConfig = appsettings[LUIS_CONFIGURATION + locale];
 
     if (!luisConfig || !luisConfig.appId) {
-        throw new Error('Missing LUIS configuration for locale "' + locale + '".\n\n');
+        throw new Error('Missing LUIS configuration for locale "' + locale + '" in appsettings.json file.\n');
     }
 
     luisRecognizers[locale] = new LuisRecognizer({
         applicationId: luisConfig.appId,
         // CAUTION: Its better to assign and use a subscription key instead of authoring key here.
         endpointKey: luisConfig.subscriptionKey,
-        endpoint: luisConfig.getEndpoint()
+        endpoint: luisConfig.endpoint
     }, undefined, true);
 
-    // Add QnAMaker recognizers
-    const qnaConfig = botConfig.findServiceByNameOrId(QNA_CONFIGURATION + locale);
+    // Add the QnA recognizer.
+    let qnaConfig = appsettings[QNA_CONFIGURATION + locale];
 
     if (!qnaConfig || !qnaConfig.kbId) {
-        throw new Error(`QnA Maker application information not found in .bot file. Please ensure you have all required QnA Maker applications created and available in the .bot file.\n\n`);
+        throw new Error(`QnA Maker application information not found in appsettings.json file.\n`);
     }
 
     qnaRecognizers[locale] = new QnAMaker({
@@ -171,7 +149,8 @@ let server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, () => {
     console.log(`\n${ server.name } listening to ${ server.url }`);
     console.log(`\nGet Bot Framework Emulator: https://aka.ms/botframework-emulator`);
-    console.log(`\nTo talk to your bot, open config/development.bot file in the Emulator`);
+    console.log('\nTo talk to your bot, open the emulator select "Open Bot"');
+    console.log('\nGet more info at: https://github.com/microsoft/BotFramework-Emulator/wiki/Getting-Started');
 });
 
 // Serve static files

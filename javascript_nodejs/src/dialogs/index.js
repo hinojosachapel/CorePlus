@@ -1,4 +1,4 @@
-// Copyright (c) 2019 Rubén Hinojosa Chapel. All rights reserved.
+// Copyright (c) Rubén Hinojosa Chapel. All rights reserved.
 // Licensed under the MIT License.
 
 module.exports = {

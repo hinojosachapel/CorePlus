@@ -1,5 +1,5 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
-// Copyright (c) 2019 Rubén Hinojosa Chapel. All rights reserved.
+// Copyright (c) Rubén Hinojosa Chapel. All rights reserved.
 // Licensed under the MIT License.
 
 // bot.js is your main bot dialog entry point for handling activity types
@@ -34,12 +34,6 @@ export class CorePlusBot extends ActivityHandler {
     private readonly dialogState: StatePropertyAccessor<DialogState>;
 
     /**
-     * Constructs the five pieces necessary for this bot to operate:
-     * 1. StatePropertyAccessor for conversation state
-     * 2. StatePropertyAccess for user state
-     * 3. LUIS clients, one per locale
-     * 4. QnA Maker clients, one per locale
-     * 5. DialogSet to handle our MainDialog, that orchestrates the whole bunch of dialogues
      *
      * @param {ConversationState} conversationState property accessor
      * @param {UserState} userState property accessor
