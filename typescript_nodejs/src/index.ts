@@ -8,6 +8,7 @@
 import * as path from 'path';
 import * as restify from 'restify';
 import * as localizer from './dialogs/shared/localizer';
+import { readFileSync } from 'fs';
 import { LuisRecognizerDictionary, QnAMakerDictionary } from './dialogs/shared/types';
 
 // Import required bot services. See https://aka.ms/bot-services to learn more about the different parts of a bot.
@@ -34,16 +35,18 @@ const QNA_MAKER_OPTIONS: QnAMakerOptions = {
     top: 1
 };
 
+const appsettingsFile: string = 'appsettings.json';
 let appsettingsPath: string = '';
 if (NODE_ENV === DEV_ENV) {
     // Avoid uploading sensitive information like appsettings.json file to your source code repository.
     // Here we store that file inside a Git ignored folder for development purposes.
-    appsettingsPath = path.join(__dirname, 'config/private/appsettings.json');
+    appsettingsPath = path.join(__dirname, 'config/private', appsettingsFile);
 } else {
-    appsettingsPath = path.join(__dirname, 'config/appsettings.json');
+    appsettingsPath = path.join(__dirname, 'config', appsettingsFile);
 }
 
-const appsettings = require(appsettingsPath);
+const appsettings = JSON.parse(readFileSync(appsettingsPath, 'UTF8'));
+
 process.env.publicResourcesUrl = appsettings.publicResourcesUrl;
 
 // Create adapter.

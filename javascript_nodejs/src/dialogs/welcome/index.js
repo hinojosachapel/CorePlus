@@ -6,7 +6,7 @@ const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
 const { Utils } = require('../shared/utils');
 const localizer = require('i18n');
 
-let welcomeCard = require('./resources/welcomeCard.json');
+const welcomeCard = require('./resources/welcomeCard.json');
 
 // Dialog IDs
 const WELCOME_DIALOG = 'welcomeDialog';
