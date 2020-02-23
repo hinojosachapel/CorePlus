@@ -8,12 +8,17 @@
 const path = require('path');
 const restify = require('restify');
 const localizer = require('i18n');
-const { readFileSync } = require('fs');
 
 // Import required bot services. See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
 const { LuisRecognizer, QnAMaker } = require('botbuilder-ai');
 const { CosmosDbStorage } = require('botbuilder-azure');
+
+// Avoid uploading sensitive information like appsettings.json file to your source code repository.
+// .gitignore file contains appsettings.json as an ignored file.
+// When creating your bot web app, manually create your server hosted appsettings.json file.
+const appsettings = require('./appsettings.json');
+process.env.publicResourcesUrl = appsettings.publicResourcesUrl;
 
 // This bot's main dialog.
 const { MainDialog } = require('./dialogs/main');
@@ -33,19 +38,6 @@ const QNA_MAKER_OPTIONS = {
     scoreThreshold: 0.5,
     top: 1
 };
-
-const appsettingsFile = 'appsettings.json';
-let appsettingsPath;
-if (NODE_ENV === DEV_ENV) {
-    // Avoid uploading sensitive information like appsettings.json file to your source code repository.
-    // Here we store that file inside a Git ignored folder for development purposes.
-    appsettingsPath = path.join(__dirname, 'config/private', appsettingsFile);
-} else {
-    appsettingsPath = path.join(__dirname, 'config', appsettingsFile);
-}
-
-const appsettings = JSON.parse(readFileSync(appsettingsPath, 'UTF8'));
-process.env.publicResourcesUrl = appsettings.publicResourcesUrl;
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about adapters and how bots work.

@@ -48,18 +48,25 @@ class WelcomeDialog extends ComponentDialog {
     }
 
     getWelcomeCard(locale) {
-        welcomeCard.body[0].url = process.env.publicResourcesUrl + '/public/welcome_logo.png';
-        welcomeCard.body[1].text = localizer.gettext(locale, 'welcome.tittle');
+        const welcomeLogoUrl = process.env.publicResourcesUrl + '/public/welcome_logo.png';
+        const welcomeTittle = localizer.gettext(locale, 'welcome.tittle');
 
         // Restart command should be localized.
         const restartCommand = localizer.gettext(locale, 'restartCommand');
-        welcomeCard.body[2].text = localizer.gettext(locale, 'welcome.subtittle', restartCommand);
+        const welcomeSubtittle = localizer.gettext(locale, 'welcome.subtittle', restartCommand);
 
-        welcomeCard.actions[0].title = localizer.gettext(locale, 'welcome.privacy');
+        const welcomeAction = localizer.gettext(locale, 'welcome.action');
         const language = locale.substring(0, 2);
-        welcomeCard.actions[0].url = process.env.publicResourcesUrl + '/public/privacy_policy_' + language + '.pdf';
+        const welcomeActionUrl = process.env.publicResourcesUrl + '/public/privacy_policy_' + language + '.pdf';
 
-        const card = CardFactory.adaptiveCard(welcomeCard);
+        const card = Utils.adaptiveCardDataBind(welcomeCard, {
+            welcomeLogoUrl,
+            welcomeTittle,
+            welcomeSubtittle,
+            welcomeAction,
+            welcomeActionUrl
+        });
+
         return { attachments: [card] };
     }
 }
