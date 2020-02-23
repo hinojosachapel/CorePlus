@@ -9,7 +9,7 @@
         "build": "tsc --build && npm run copy:assets",
         "start": "npm run build && node ./build/index.js",
         "copy:assets": "npm run config && npm run jsonfiles && npm run public && npm run webchat",
-        "config": "copyfiles --all --up 1 \"./src/config/*.*\" ./build",
+        "config": "copyfiles --up 1 \"./src/appsettings.json\" ./build",
         "jsonfiles": "copyfiles --up 1 \"./src/**/*.json\" ./build && echo 'JSON files copied.'",
         "public": "copyfiles --up 1 \"./src/public/*.*\" ./build",
         "webchat": "copyfiles --up 1 \"./src/webchat/*.*\" ./build",
@@ -22,6 +22,7 @@
         "url": "https://github.com/hinojosachapel/CorePlus"
     },
     "dependencies": {
+        "adaptivecards-templating": "^0.1.1-alpha.0",
         "botbuilder": "^4.7.1",
         "botbuilder-ai": "^4.7.1",
         "botbuilder-azure": "^4.7.1",

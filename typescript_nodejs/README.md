@@ -21,49 +21,34 @@
 - [Create a QnA Maker service][15]
  1. After creating the **QnA Maker** service, create a knowledge base using the `CoreplusKB.tsv` file located in the `cognitiveModels` folder of the project. Use this **.tsv** file to populate your KB. Then train and publish your model, and obtain the values to connect your bot to the knowledge base.
 
-- Update the **.bot** file `development.bot` located in the `typescript_nodejs/src/config` folder with the missing values for LUIS and QnA Maker services.
+- Create the **appsettings.json** file in the `typescript_nodejs/src` folder with the missing values for your bot app, LUIS and QnA Maker services. You will need Cosmos DB keys only when deploying to Azure.
   ```javascript
   {
-      "name": "coreplus",
-      "description": "",
-      "services": [
-          {
-              "type": "endpoint",
-              "id": "1",
-              "name": "endpoint",
-              "appId": "",
-              "appPassword": "",
-              "endpoint": "http://localhost:3978/api/messages"
-          },
-          {
-              "type": "luis",
-              "id": "20",
-              "name": "LUIS-en-US",
-              "appId": "<YOUR_APP_ID>",
-              "authoringKey": "<YOUR_AUTHORING_KEY>",
-              "subscriptionKey": "<YOUR_AUTHORING_KEY>",
-              "version": "0.1",
-              "region": "<YOUR_REGION>"
-          },
-          {
-              "type": "qna",
-              "id": "30",
-              "name": "QNA-en-US",
-              "kbId": "<Your_Knowledge_Base_Id>",
-              "subscriptionKey": "",
-              "endpointKey": "<Your_Endpoint_Key>",
-              "hostname": "https://your-qnamaker-app-name.azurewebsites.net/qnamaker"
-          }
-      ],
-      "padlock": "",
-      "version": "2.0"
+    "microsoftAppId": "<YOUR_APP_ID>",
+    "microsoftAppPassword": "<YOUR_APP_PASSWORD>",
+    "appInsights": {
+      "instrumentationKey": ""
+    },
+    "LUIS-en-US": {
+      "appId": "<YOUR_APP_ID>",
+      "authoringKey": "<YOUR_AUTHORING_KEY>",
+      "subscriptionKey": "<YOUR_AUTHORING_KEY>",
+      "endpoint": "https://your-region.api.cognitive.microsoft.com"
+    },
+    "QNA-en-US": {
+      "kbId": "<YOUR_KNOWLEDGE_BASE_ID>",
+      "subscriptionKey": "<YOUR_SUBSCRIPTION_KEY>",
+      "endpointKey": "<YOUR_ENDPOINT_KEY>",
+      "hostname": "https://your-qnamaker-app-name.azurewebsites.net/qnamaker"
+    },
+    "cosmosDb": {
+      "serviceEndpoint": "https://your-cosmosdb-account-name.documents.azure.com:443/",
+      "authKey": "<YOUR_AUTHORING_KEY>",
+      "databaseId": "<YOUR_DATABASE_ID>",
+      "collectionId": "<YOUR_COLLECTION_ID>"
+    },
+    "publicResourcesUrl": "http://localhost:3978"
   }
-  ```
-
-- From inside the development environment, create the `.env` file located in the `typescript_nodejs/src/config` folder with the following content:
-  ```bash
-  botFileSecret=""
-  publicResourcesUrl="http://localhost:3978"
   ```
   
 - Navigate to the `typescript_nodejs` folder and run the following npm commands to install modules, build the bot source code (transpile the TypeScript source code into Node.js code) and start the bot:
@@ -80,12 +65,8 @@
 
 ## Connect to the bot using Bot Framework Emulator **v4**
 - Launch Bot Framework Emulator
-- File -> Open Bot Configuration
-- Navigate to `config` folder
-- Select `development.bot` file
-
-# About the .bot file
-With the 4.3 release of the Bot Framework, Microsoft moved away from using .bot files. The .bot file [has been deprecated](https://docs.microsoft.com/en-us/azure/bot-service/bot-file-basics?view=azure-bot-service-4.0&tabs=js). The new recommended solution for managing resources is to use appsettings.json or .env file instead of the .bot file. So, I'll be updating the project in the near future accordingly.
+- File -> Open Bot
+- Enter a Bot URL of `http://localhost:3978/api/messages`, <YOUR_APP_ID> and <YOUR_APP_PASSWORD>.
 
 # Further reading
 - [CorePlus: a Microsoft Bot Framework v4 template][50]
@@ -95,17 +76,14 @@ With the 4.3 release of the Bot Framework, Microsoft moved away from using .bot 
 - [Azure Bot Service Introduction][21]
 - [Azure Bot Service Documentation][22]
 - [Deploying Your Bot to Azure][40]
-- [msbot CLI][9]
 - [Azure Portal][10]
 - [Restify][30]
-- [dotenv][31]
   
 [1]: https://dev.botframework.com
 [3]: https://www.typescriptlang.org
 [4]: https://nodejs.org
 [5]: https://github.com/microsoft/botframework-emulator
 [6]: https://github.com/Microsoft/BotFramework-Emulator/releases
-[9]: https://github.com/Microsoft/botbuilder-tools/tree/master/packages/MSBot
 [10]: https://portal.azure.com
 [11]: https://www.luis.ai
 [12]: https://www.qnamaker.ai
@@ -119,7 +97,6 @@ With the 4.3 release of the Bot Framework, Microsoft moved away from using .bot 
 [21]: https://docs.microsoft.com/azure/bot-service/bot-service-overview-introduction?view=azure-bot-service-4.0
 [22]: https://docs.microsoft.com/azure/bot-service/?view=azure-bot-service-4.0
 [30]: https://www.npmjs.com/package/restify
-[31]: https://www.npmjs.com/package/dotenv
 [32]: https://docs.microsoft.com/azure/bot-service/bot-builder-basics?view=azure-bot-service-4.0
 [40]: https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-deploy-az-cli?view=azure-bot-service-4.0
 [50]: https://www.codeproject.com/Articles/4254785/CorePlus-a-Microsoft-Bot-Framework-v4-template

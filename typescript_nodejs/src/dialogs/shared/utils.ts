@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import { Activity, CardFactory, CardAction } from 'botbuilder';
+import ACData from 'adaptivecards-templating';
 import { TurnContext, Attachment } from 'botbuilder-core';
 import { Choice } from 'botbuilder-dialogs';
 import * as localizer from './localizer';
@@ -124,5 +125,12 @@ export class Utils {
 
     static shouldShowTyping(): boolean {
         return this.getRandomInt(0, 100) < 30;
+    }
+
+    static adaptiveCardDataBind(templatePayload: any, dataContext: any): Attachment {
+        const template: ACData.Template = new ACData.Template(templatePayload);
+        const context: ACData.EvaluationContext = new ACData.EvaluationContext();
+        context.$root = dataContext;
+        return CardFactory.adaptiveCard(template.expand(context));
     }
 }

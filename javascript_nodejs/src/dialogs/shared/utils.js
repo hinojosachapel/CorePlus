@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 const { CardFactory } = require('botbuilder');
+const ACData = require('adaptivecards-templating');
 const localizer = require('i18n');
 
 class Utils {
@@ -121,6 +122,13 @@ class Utils {
 
     static shouldShowTyping() {
         return this.getRandomInt(0, 100) < 30;
+    }
+
+    static adaptiveCardDataBind(templatePayload, dataContext) {
+        const template = new ACData.Template(templatePayload);
+        const context = new ACData.EvaluationContext();
+        context.$root = dataContext;
+        return CardFactory.adaptiveCard(template.expand(context));
     }
 }
 

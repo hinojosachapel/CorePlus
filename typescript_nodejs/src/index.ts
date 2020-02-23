@@ -5,16 +5,21 @@
 // index.ts is used to setup and configure your bot
 
 // Import required packages
-import * as path from 'path';
-import * as restify from 'restify';
-import * as localizer from './dialogs/shared/localizer';
-import { readFileSync } from 'fs';
+import path from 'path';
+import restify from 'restify';
+import localizer from './dialogs/shared/localizer';
 import { LuisRecognizerDictionary, QnAMakerDictionary } from './dialogs/shared/types';
 
 // Import required bot services. See https://aka.ms/bot-services to learn more about the different parts of a bot.
 import { BotFrameworkAdapter, Storage, MemoryStorage, ConversationState, UserState, TurnContext } from 'botbuilder';
 import { LuisRecognizer, QnAMaker, QnAMakerOptions } from 'botbuilder-ai';
 import { CosmosDbStorage } from 'botbuilder-azure';
+
+// Avoid uploading sensitive information like appsettings.json file to your source code repository.
+// .gitignore file contains appsettings.json as an ignored file.
+// When creating your bot web app, manually create your server hosted appsettings.json file.
+import appsettings from './appsettings.json';
+process.env.publicResourcesUrl = appsettings.publicResourcesUrl;
 
 // This bot's main dialog.
 import { MainDialog } from './dialogs/main';
@@ -34,20 +39,6 @@ const QNA_MAKER_OPTIONS: QnAMakerOptions = {
     scoreThreshold: 0.5,
     top: 1
 };
-
-const appsettingsFile: string = 'appsettings.json';
-let appsettingsPath: string = '';
-if (NODE_ENV === DEV_ENV) {
-    // Avoid uploading sensitive information like appsettings.json file to your source code repository.
-    // Here we store that file inside a Git ignored folder for development purposes.
-    appsettingsPath = path.join(__dirname, 'config/private', appsettingsFile);
-} else {
-    appsettingsPath = path.join(__dirname, 'config', appsettingsFile);
-}
-
-const appsettings = JSON.parse(readFileSync(appsettingsPath, 'UTF8'));
-
-process.env.publicResourcesUrl = appsettings.publicResourcesUrl;
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about adapters and how bots work.
