@@ -235,9 +235,9 @@ export class MainDialog extends ComponentDialog {
             for (var idx in context.activity.membersAdded) {
                 // Greet anyone that was not the target (recipient) of this message
                 // 'bot' is the recipient for events from the channel,
-                // context.activity.membersAdded !== context.activity.recipient.Id indicates the
+                // context.activity.membersAdded === context.activity.recipient.Id indicates the
                 // bot was added to the conversation.
-                if (context.activity.membersAdded[idx].id !== context.activity.recipient.id) {
+                if (context.activity.membersAdded[idx].id === context.activity.recipient.id) {
                     // Welcome user.
                     // When activity type is "conversationUpdate" and the member joining the conversation is the bot
                     // we will send our Welcome Adaptive Card.  This will only be sent once, when the Bot joins conversation
