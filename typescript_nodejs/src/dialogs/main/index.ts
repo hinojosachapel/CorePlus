@@ -160,8 +160,12 @@ export class MainDialog extends ComponentDialog {
 
             if (interrupted) {
                 if (dc.activeDialog) {
-                    // issue a re-prompt on the active dialog
-                    await dc.repromptDialog();
+                    // issue a re-prompt on the active dialog if it's not Cancel dialog
+                    if (dc.activeDialog.id !== CancelDialog.name) {
+                        await dc.repromptDialog();
+                    } else {
+                        turnResult = await dc.continueDialog();
+                    }
                 } // Else: We don't have an active dialog so nothing to continue here.
             } else {
                 // No interruption. Continue any active dialogs.

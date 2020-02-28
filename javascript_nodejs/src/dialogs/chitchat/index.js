@@ -67,10 +67,8 @@ class ChitchatDialog extends ComponentDialog {
             return true;
         }
 
-        // This is a special case that leads to a new dialog,
-        // so it's not handled as a normal interruption flow.
         await dc.beginDialog(CancelDialog.name);
-        return false;
+        return true;
     }
 
     /**
