@@ -41,10 +41,10 @@
       "hostname": "https://your-qnamaker-app-name.azurewebsites.net/qnamaker"
     },
     "cosmosDb": {
-      "serviceEndpoint": "https://your-cosmosdb-account-name.documents.azure.com:443/",
+      "cosmosDbEndpoint": "https://your-cosmosdb-account-name.documents.azure.com:443/",
       "authKey": "<YOUR_AUTHORING_KEY>",
       "databaseId": "<YOUR_DATABASE_ID>",
-      "collectionId": "<YOUR_COLLECTION_ID>"
+      "containerId": "<YOUR_COLLECTION_ID>"
     },
     "publicResourcesUrl": "http://localhost:3978"
   }

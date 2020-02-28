@@ -13,7 +13,7 @@ import { LuisRecognizerDictionary, QnAMakerDictionary } from './dialogs/shared/t
 // Import required bot services. See https://aka.ms/bot-services to learn more about the different parts of a bot.
 import { BotFrameworkAdapter, Storage, MemoryStorage, ConversationState, UserState, TurnContext } from 'botbuilder';
 import { LuisRecognizer, QnAMaker, QnAMakerOptions } from 'botbuilder-ai';
-import { CosmosDbStorage } from 'botbuilder-azure';
+import { CosmosDbPartitionedStorage } from 'botbuilder-azure';
 
 // Avoid uploading sensitive information like appsettings.json file to your source code repository.
 // .gitignore file contains appsettings.json as an ignored file.
@@ -75,7 +75,7 @@ if (NODE_ENV === DEV_ENV) {
     // is restarted, anything stored in memory will be gone.
     storage = new MemoryStorage();
 } else {
-    storage = new CosmosDbStorage(appsettings.cosmosDb);
+    storage = new CosmosDbPartitionedStorage(appsettings.cosmosDb);
 }
 
 conversationState = new ConversationState(storage);
