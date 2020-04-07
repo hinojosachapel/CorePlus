@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 // Import required packages
-import localizer from '../shared/localizer';
+import * as localizer from '../shared/localizer';
 import { UserData } from '../shared/userData';
 import { Utils } from '../shared/utils';
 
@@ -10,7 +10,7 @@ import { Utils } from '../shared/utils';
 import { ComponentDialog, DialogTurnResult, WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
 import { Activity, CardFactory, StatePropertyAccessor } from 'botbuilder';
 
-import welcomeCard from './resources/welcomeCard.json';
+import * as welcomeCard from './resources/welcomeCard.json';
 import { Attachment } from 'botbuilder-core';
 
 // Dialog IDs

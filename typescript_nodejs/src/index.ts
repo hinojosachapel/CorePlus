@@ -5,9 +5,9 @@
 // index.ts is used to setup and configure your bot
 
 // Import required packages
-import path from 'path';
-import restify from 'restify';
-import localizer from './dialogs/shared/localizer';
+import * as path from 'path';
+import * as  restify from 'restify';
+import * as localizer from './dialogs/shared/localizer';
 import { LuisRecognizerDictionary, QnAMakerDictionary } from './dialogs/shared/types';
 
 // Import required bot services. See https://aka.ms/bot-services to learn more about the different parts of a bot.
@@ -18,7 +18,7 @@ import { CosmosDbPartitionedStorage } from 'botbuilder-azure';
 // Avoid uploading sensitive information like appsettings.json file to your source code repository.
 // .gitignore file contains appsettings.json as an ignored file.
 // When creating your bot web app, manually create your server hosted appsettings.json file.
-import appsettings from './appsettings.json';
+import * as appsettings from './appsettings.json';
 process.env.publicResourcesUrl = appsettings.publicResourcesUrl;
 
 // This bot's main dialog.

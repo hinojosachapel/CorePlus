@@ -27,7 +27,7 @@ declare module 'i18n' {
     return i18n.__({ phrase: key, locale: locale });
 };
 
-(i18n.getobject as any) = function(locale: string | undefined, key: string): {} {
+(i18n.getobject as any) = function(locale: string | undefined, key: string): any {
     return i18n.__({ phrase: key, locale: locale });
 };
 
