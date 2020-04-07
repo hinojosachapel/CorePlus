@@ -98,7 +98,7 @@ availableLocales.forEach((locale) => {
     const luisConfig = appsettings[LUIS_CONFIGURATION + locale];
 
     if (!luisConfig || !luisConfig.appId) {
-        throw new Error('Missing LUIS configuration for locale "' + locale + '" in appsettings.json file.\n');
+        throw new Error(`Missing LUIS configuration for locale "${ locale }" in appsettings.json file.\n`);
     }
 
     luisRecognizers[locale] = new LuisRecognizer({
@@ -112,7 +112,7 @@ availableLocales.forEach((locale) => {
     const qnaConfig = appsettings[QNA_CONFIGURATION + locale];
 
     if (!qnaConfig || !qnaConfig.kbId) {
-        throw new Error(`QnA Maker application information not found in appsettings.json file.\n`);
+        throw new Error(`Missing QnA Maker configuration for locale "${ locale }" in appsettings.json file.\n`);
     }
 
     qnaRecognizers[locale] = new QnAMaker({
