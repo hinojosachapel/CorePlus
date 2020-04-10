@@ -19,7 +19,7 @@
  1. Import `CoreplusLUIS.json` file located in the `cognitiveModels` folder of the project. This file contains six intents: **Greeting**, **ChitchatCancel**, **ChitchatHelp**, **ChitchatJoke**, **ChitchatProfanity** and **None**.
 
 - [Create a QnA Maker service][15]
- 1. After creating the **QnA Maker** service, create a knowledge base using the `CoreplusKB.tsv` file located in the `cognitiveModels` folder of the project. Use this **.tsv** file to populate your KB. Then train and publish your model, and obtain the values to connect your bot to the knowledge base.
+ 1. After creating the **QnA Maker** service, create a knowledge base using the `CoreplusKB.tsv` file located in the `cognitiveModels` folder of the project. Use this **.tsv** file to populate your KB. Then add the chit-chat files (`CoreplusPC.tsv` and `qna_chitchat_friendly.tsv`) using the *Add file* link located in the `Settings` tab. Train and publish your model, and obtain the values to connect your bot to the knowledge base.
 
 - Create the **appsettings.json** file in the `typescript_nodejs/src` folder with the missing values for your bot app, LUIS and QnA Maker services. You will need Cosmos DB keys only when deploying to Azure.
   ```javascript
