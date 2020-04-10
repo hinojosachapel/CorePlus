@@ -130,17 +130,23 @@ class MainDialog extends ComponentDialog {
         const utterance = (dc.context.activity.text || '').trim().toLowerCase();
 
         // Handle commands
-        if (utterance === localizer.gettext(locale, 'restartCommand')) {
+        if (utterance === localizer.gettext(locale, 'restartCommand').toLowerCase()) {
             let userData = new UserData();
             // Save locale and any other data you need to persist between resets
             userData.locale = locale;
             await this.userDataAccessor.set(dc.context, userData);
             await dc.cancelAllDialogs();
             turnResult = await dc.beginDialog(WelcomeDialog.name);
-        } else if (dc.activeDialog && dc.activeDialog.id === QnADialog.name) {
-            // If current active dialog is QnADialog, continue the flow inside that dialog.
-            turnResult = await dc.continueDialog();
         } else {
+            if (dc.activeDialog && dc.activeDialog.id === QnADialog.name) {
+                // If current active dialog is QnADialog, continue the flow inside that dialog.
+                turnResult = await dc.continueDialog();
+
+                if (turnResult.status === 'complete') {
+                    turnResult.status = DialogTurnStatus.empty;
+                }
+            }
+
             // Perform a call to LUIS to retrieve results for the current activity message.
             const results = await this.luisRecognizers[locale].recognize(dc.context);
             const topIntent = LuisRecognizer.topIntent(results, undefined, LUIS_CONFIDENCE_THRESHOLD);

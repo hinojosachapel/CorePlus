@@ -69,5 +69,5 @@
 	},
 	"readyPrompt": "What can I do for you? \r (Choose one or type your own question)",
 	"profanity": "That hurt my feelings. 😓 If you are stuck, just type \"**help**\" and I'll tell you some hints.",
-	"restartCommand": "restart"
+	"restartCommand": "Restart"
 }

@@ -22,17 +22,16 @@
         "url": "https://github.com/hinojosachapel/CorePlus"
     },
     "dependencies": {
-        "adaptivecards-templating": "^0.1.1-alpha.0",
-        "botbuilder": "^4.7.1",
-        "botbuilder-ai": "^4.7.1",
-        "botbuilder-azure": "^4.7.1",
-        "botbuilder-core": "^4.7.1",
-        "botbuilder-dialogs": "^4.7.1",
-        "botframework-config": "^4.7.1",
-        "botframework-connector": "^4.7.1",
-        "botframework-schema": "^4.7.1",
-        "dotenv": "^6.1.0",
-        "i18n": "^0.8.5",
+        "adaptivecards-templating": "^0.1.1-alpha.1",
+        "botbuilder": "^4.8.0",
+        "botbuilder-ai": "^4.8.0",
+        "botbuilder-azure": "^4.8.0",
+        "botbuilder-core": "^4.8.0",
+        "botbuilder-dialogs": "^4.8.0",
+        "botframework-config": "^4.8.0",
+        "botframework-connector": "^4.8.0",
+        "botframework-schema": "^4.8.0",
+        "i18n": "^0.8.6",
         "restify": "^8.5.1"
     },
     "devDependencies": {
@@ -41,12 +40,12 @@
         "copyfiles": "^2.2.0",
         "eslint": "^5.8.0",
         "eslint-config-standard": "^12.0.0",
-        "eslint-plugin-import": "^2.20.0",
+        "eslint-plugin-import": "^2.20.2",
         "eslint-plugin-node": "^8.0.0",
         "eslint-plugin-promise": "^4.0.1",
         "eslint-plugin-standard": "^4.0.0",
         "nodemon": "^1.19.4",
-        "ts-node": "^8.6.2",
-        "typescript": "^3.7.5"
+        "ts-node": "^8.8.2",
+        "typescript": "^3.8.3"
     }
 }

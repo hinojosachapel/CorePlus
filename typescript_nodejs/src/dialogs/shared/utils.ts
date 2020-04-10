@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 import { Activity, CardFactory, CardAction } from 'botbuilder';
-import ACData from 'adaptivecards-templating';
+import * as ACData from 'adaptivecards-templating';
 import { TurnContext, Attachment } from 'botbuilder-core';
 import { Choice } from 'botbuilder-dialogs';
 import * as localizer from './localizer';
