@@ -11,7 +11,6 @@ const localizer = require('i18n');
 
 // Import required bot services. See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
-const { LuisRecognizer, QnAMaker } = require('botbuilder-ai');
 const { CosmosDbPartitionedStorage } = require('botbuilder-azure');
 
 // Avoid uploading sensitive information like appsettings.json file to your source code repository.
@@ -20,24 +19,10 @@ const { CosmosDbPartitionedStorage } = require('botbuilder-azure');
 const appsettings = require('./appsettings.json');
 process.env.publicResourcesUrl = appsettings.publicResourcesUrl;
 
-// This bot's main dialog.
-const { MainDialog } = require('./dialogs/main');
 const { CorePlusBot } = require('./bot');
 
 const DEV_ENV = 'local';
 const NODE_ENV = (process.env.NODE_ENV || DEV_ENV);
-
-// Name of the QnA Maker service in the .bot file without the locale key.
-const QNA_CONFIGURATION = 'QNA-';
-
-// LUIS service type entry as defined in the .bot file without the locale key.
-const LUIS_CONFIGURATION = 'LUIS-';
-
-// CONSTS used in QnA Maker query.
-const QNA_MAKER_OPTIONS = {
-    scoreThreshold: 0.5,
-    top: 1
-};
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about adapters and how bots work.
@@ -58,11 +43,6 @@ adapter.onTurnError = async (context, error) => {
     await conversationState.delete(context);
 };
 
-// Define a state store for your bot.
-// See https://aka.ms/about-bot-state to learn more about using MemoryStorage.
-// A bot requires a state store to persist the dialog and user state between messages.
-let conversationState, userState;
-
 let storage;
 
 if (NODE_ENV === DEV_ENV) {
@@ -76,8 +56,11 @@ if (NODE_ENV === DEV_ENV) {
     storage = new CosmosDbPartitionedStorage(appsettings.cosmosDb);
 }
 
-conversationState = new ConversationState(storage);
-userState = new UserState(storage);
+// Define a state store for your bot.
+// See https://aka.ms/about-bot-state to learn more about using MemoryStorage.
+// A bot requires a state store to persist the dialog and user state between messages.
+const conversationState = new ConversationState(storage);
+const userState = new UserState(storage);
 
 // Configure localizer
 localizer.configure({
@@ -92,47 +75,10 @@ localizer.gettext = function(locale, key, args) {
     return this.__({ phrase: key, locale: locale }, args);
 };
 
-const luisRecognizers = {};
-const qnaRecognizers = {};
-const availableLocales = localizer.getLocales();
-
-// Add LUIS and QnAMaker recognizers for each locale
-availableLocales.forEach((locale) => {
-    // Add the LUIS recognizer.
-    let luisConfig = appsettings[LUIS_CONFIGURATION + locale];
-
-    if (!luisConfig || !luisConfig.appId) {
-        throw new Error(`Missing LUIS configuration for locale "${ locale }" in appsettings.json file.\n`);
-    }
-
-    luisRecognizers[locale] = new LuisRecognizer({
-        applicationId: luisConfig.appId,
-        // CAUTION: Its better to assign and use a subscription key instead of authoring key here.
-        endpointKey: luisConfig.subscriptionKey,
-        endpoint: luisConfig.endpoint
-    }, undefined, true);
-
-    // Add the QnA recognizer.
-    let qnaConfig = appsettings[QNA_CONFIGURATION + locale];
-
-    if (!qnaConfig || !qnaConfig.kbId) {
-        throw new Error(`Missing QnA Maker configuration for locale "${ locale }" in appsettings.json file.\n`);
-    }
-
-    qnaRecognizers[locale] = new QnAMaker({
-        knowledgeBaseId: qnaConfig.kbId,
-        endpointKey: qnaConfig.endpointKey,
-        host: qnaConfig.hostname
-    }, QNA_MAKER_OPTIONS);
-});
-
-// Create the main dialog.
-const mainDialog = new MainDialog(luisRecognizers, qnaRecognizers, userState);
-
 // Create the bot's main handler.
 let bot;
 try {
-    bot = new CorePlusBot(conversationState, userState, mainDialog);
+    bot = new CorePlusBot(conversationState, userState);
 } catch (err) {
     console.error(`[botInitializationError]: ${ err }`);
     process.exit();

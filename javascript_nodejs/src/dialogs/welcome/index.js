@@ -48,16 +48,16 @@ class WelcomeDialog extends ComponentDialog {
     }
 
     getWelcomeCard(locale) {
-        const welcomeLogoUrl = process.env.publicResourcesUrl + '/public/welcome_logo.png';
+        const welcomeLogoUrl = `${ process.env.publicResourcesUrl }/public/welcome_logo.png`;
         const welcomeTittle = localizer.gettext(locale, 'welcome.tittle');
 
         // Restart command should be localized.
         const restartCommand = localizer.gettext(locale, 'restartCommand');
         const welcomeSubtittle = localizer.gettext(locale, 'welcome.subtittle', restartCommand);
 
-        const welcomeAction = localizer.gettext(locale, 'welcome.action');
+        const welcomeAction = localizer.gettext(locale, 'welcome.privacy');
         const language = locale.substring(0, 2);
-        const welcomeActionUrl = process.env.publicResourcesUrl + '/public/privacy_policy_' + language + '.pdf';
+        const welcomeActionUrl = `${ process.env.publicResourcesUrl }/public/privacy_policy_${ language }.pdf`;
 
         const card = Utils.adaptiveCardDataBind(welcomeCard, {
             welcomeLogoUrl,

@@ -3,8 +3,7 @@
 		"tittle": "👋 Hello, welcome to Bot Framework!",
 		"subtittle": "If you want to start over, just write \"**%s**\" at any time. Stuck and don't know what to say? Type \"**help**\" and I'll tell you some hints. You may also ask me questions about the trained subject in QnA Maker.",
 		"privacy": "See my privacy policy",
-		"readyPrompt": "How can I help you?",
-		"action": "welcome.action"
+		"readyPrompt": "How can I help you?"
 	},
 	"greeting": {
 		"namePrompt": "What is your name?",
