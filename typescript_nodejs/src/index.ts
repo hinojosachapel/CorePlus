@@ -8,11 +8,9 @@
 import * as path from 'path';
 import * as  restify from 'restify';
 import * as localizer from './dialogs/shared/localizer';
-import { LuisRecognizerDictionary, QnAMakerDictionary } from './dialogs/shared/types';
 
 // Import required bot services. See https://aka.ms/bot-services to learn more about the different parts of a bot.
 import { BotFrameworkAdapter, Storage, MemoryStorage, ConversationState, UserState, TurnContext } from 'botbuilder';
-import { LuisRecognizer, QnAMaker, QnAMakerOptions } from 'botbuilder-ai';
 import { CosmosDbPartitionedStorage } from 'botbuilder-azure';
 
 // Avoid uploading sensitive information like appsettings.json file to your source code repository.
@@ -21,24 +19,10 @@ import { CosmosDbPartitionedStorage } from 'botbuilder-azure';
 import * as appsettings from './appsettings.json';
 process.env.publicResourcesUrl = appsettings.publicResourcesUrl;
 
-// This bot's main dialog.
-import { MainDialog } from './dialogs/main';
 import { CorePlusBot } from './bot';
 
 const DEV_ENV: string = 'local';
 const NODE_ENV: string = (process.env.NODE_ENV || DEV_ENV);
-
-// Name of the QnA Maker service in the .bot file without the locale key.
-const QNA_CONFIGURATION: string = 'QNA-';
-
-// LUIS service type entry as defined in the .bot file without the locale key.
-const LUIS_CONFIGURATION: string = 'LUIS-';
-
-// CONSTS used in QnA Maker query.
-const QNA_MAKER_OPTIONS: QnAMakerOptions = {
-    scoreThreshold: 0.5,
-    top: 1
-};
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about adapters and how bots work.
@@ -59,12 +43,6 @@ adapter.onTurnError = async (context, error) => {
     await conversationState.delete(context);
 };
 
-// Define a state store for your bot.
-// See https://aka.ms/about-bot-state to learn more about using MemoryStorage.
-// A bot requires a state store to persist the dialog and user state between messages.
-let conversationState: ConversationState;
-let userState: UserState;
-
 let storage: Storage;
 
 if (NODE_ENV === DEV_ENV) {
@@ -78,8 +56,11 @@ if (NODE_ENV === DEV_ENV) {
     storage = new CosmosDbPartitionedStorage(appsettings.cosmosDb);
 }
 
-conversationState = new ConversationState(storage);
-userState = new UserState(storage);
+// Define a state store for your bot.
+// See https://aka.ms/about-bot-state to learn more about using MemoryStorage.
+// A bot requires a state store to persist the dialog and user state between messages.
+const conversationState: ConversationState = new ConversationState(storage);
+const userState: UserState = new UserState(storage);
 
 // Configure localizer
 localizer.configure({
@@ -88,47 +69,10 @@ localizer.configure({
     objectNotation: true // Supports hierarchical translation. For instance, allows to use 'welcome.readyPrompt'
 });
 
-const luisRecognizers: LuisRecognizerDictionary = {};
-const qnaRecognizers: QnAMakerDictionary = {};
-const availableLocales: string[] = localizer.getLocales();
-
-// Add LUIS and QnAMaker recognizers for each locale
-availableLocales.forEach((locale) => {
-    // Add the LUIS recognizer.
-    const luisConfig = appsettings[LUIS_CONFIGURATION + locale];
-
-    if (!luisConfig || !luisConfig.appId) {
-        throw new Error(`Missing LUIS configuration for locale "${ locale }" in appsettings.json file.\n`);
-    }
-
-    luisRecognizers[locale] = new LuisRecognizer({
-        applicationId: luisConfig.appId,
-        // CAUTION: Its better to assign and use a subscription key instead of authoring key here.
-        endpointKey: luisConfig.subscriptionKey,
-        endpoint: luisConfig.endpoint
-    }, undefined, true);
-
-    // Add the QnA recognizer.
-    const qnaConfig = appsettings[QNA_CONFIGURATION + locale];
-
-    if (!qnaConfig || !qnaConfig.kbId) {
-        throw new Error(`Missing QnA Maker configuration for locale "${ locale }" in appsettings.json file.\n`);
-    }
-
-    qnaRecognizers[locale] = new QnAMaker({
-        knowledgeBaseId: qnaConfig.kbId,
-        endpointKey: qnaConfig.endpointKey,
-        host: qnaConfig.hostname
-    }, QNA_MAKER_OPTIONS);
-});
-
-// Create the main dialog.
-const mainDialog: MainDialog = new MainDialog(luisRecognizers, qnaRecognizers, userState);
-
 // Create the main dialog.
 let bot: CorePlusBot;
 try {
-    bot = new CorePlusBot(conversationState, userState, mainDialog);
+    bot = new CorePlusBot(conversationState, userState);
 } catch (err) {
     console.error(`[botInitializationError]: ${ err }`);
     process.exit();
