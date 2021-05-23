@@ -5,9 +5,9 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "type": "pwa-node",
             "request": "launch",
-            "name": "dev Typescript",         
+            "name": "dev Typescript",
             "args": [
                 "src/index.ts"
             ],
@@ -16,14 +16,23 @@
                 "ts-node/register"
             ],
             "cwd": "${workspaceFolder}",
-            "protocol": "inspector",
-            "internalConsoleOptions": "openOnSessionStart"           
+            "internalConsoleOptions": "openOnSessionStart",
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "!**/node_modules/**"
+            ]
         },
         {
-            "type": "node",
+            "type": "pwa-node",
             "request": "launch",
             "name": "dev JavaScript",
-            "program": "${workspaceFolder}/build/index.js"
+            "program": "${workspaceFolder}/build/index.js",
+            "trace": true,
+            "sourceMaps": true,
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "!**/node_modules/**"
+            ]
         }
     ]
 }

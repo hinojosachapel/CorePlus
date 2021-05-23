@@ -46,7 +46,8 @@
       "databaseId": "<YOUR_DATABASE_ID>",
       "containerId": "<YOUR_COLLECTION_ID>"
     },
-    "publicResourcesUrl": "http://localhost:3978"
+    "publicResourcesUrl": "http://localhost:3978",
+    "allowPublicFolder": "true"
   }
   ```
   

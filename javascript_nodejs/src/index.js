@@ -93,10 +93,12 @@ server.listen(process.env.port || process.env.PORT || 3978, () => {
     console.log('\nGet more info at: https://github.com/microsoft/BotFramework-Emulator/wiki/Getting-Started');
 });
 
-// Serve static files
-server.get('/public/*', restify.plugins.serveStatic({
-    directory: __dirname
-}));
+if (appsettings.allowPublicFolder === 'true') {
+    // Serve static files
+    server.get('/public/*', restify.plugins.serveStatic({
+        directory: __dirname
+    }));
+}
 
 // Listen for incoming activities and route them to your bot main dialog.
 server.post('/api/messages', (req, res) => {
