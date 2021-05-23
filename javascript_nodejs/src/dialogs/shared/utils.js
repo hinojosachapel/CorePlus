@@ -77,7 +77,7 @@ class Utils {
         }
 
         return {
-            value: 'yes',
+            value: title,
             action: {
                 type: 'imBack',
                 title: title,
@@ -104,7 +104,7 @@ class Utils {
         }
 
         return {
-            value: 'no',
+            value: title,
             action: {
                 type: 'imBack',
                 title: title,

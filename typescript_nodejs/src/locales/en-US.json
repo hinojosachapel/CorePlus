@@ -68,6 +68,7 @@
 		"cancel": ["cancel", "abort"]
 	},
 	"readyPrompt": "What can I do for you? \r (Choose one or type your own question)",
+	"attachmentResponse": "Thanks! 👍",
 	"profanity": "That hurt my feelings. 😓 If you are stuck, just type \"**help**\" and I'll tell you some hints.",
 	"restartCommand": "Restart"
 }

@@ -139,6 +139,13 @@ export class MainDialog extends ComponentDialog {
         let turnResult: DialogTurnResult = DIALOG_TURN_RESULT_DEFAULT;
         const utterance: string = (dc.context.activity.text || '').trim().toLowerCase();
 
+        // Look for attachments. Only answer if no text message.
+        if (utterance.length === 0 && dc.context.activity.attachments && dc.context.activity.attachments.length > 0) {
+            // The user sent an attachment and the bot should handle the incoming attachment.
+            await dc.context.sendActivity(localizer.gettext(locale, 'attachmentResponse'));
+            return DIALOG_TURN_RESULT_DEFAULT;
+        }
+
         // Handle commands
         if (utterance === localizer.gettext(locale, 'restartCommand').toLowerCase()) {
             const userData: UserData = new UserData();
