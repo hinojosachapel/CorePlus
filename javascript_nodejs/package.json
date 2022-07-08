@@ -16,7 +16,7 @@
         "url": "https://github.com/hinojosachapel/CorePlus"
     },
     "engines": {
-        "node": ">=14.15"
+        "node": ">=14.16.0"
     },
     "dependencies": {
         "adaptivecards-templating": "^0.1.1-alpha.1",
